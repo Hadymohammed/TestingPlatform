@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 
-const app = express();
+const app : Application= express();
 const address = '0.0.0.0:3000';
 
 app.use(bodyParser.json());
