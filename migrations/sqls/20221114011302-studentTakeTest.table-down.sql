@@ -1,1 +1,1 @@
-DROP TABLE studentTakeTest;
+DROP TABLE studenttaketest;
