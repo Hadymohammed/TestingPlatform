@@ -1,1 +1,1 @@
-DROP TABLE studentquestion;
+DROP TABLE studentQuestion;

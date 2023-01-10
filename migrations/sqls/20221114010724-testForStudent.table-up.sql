@@ -1,4 +1,4 @@
-CREATE TABLE tests_for_student(
+CREATE TABLE testForStudent(
     id SERIAL primary key,
     test_id int NOT NULL ,
     student_id int NOT NULL,
