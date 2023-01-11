@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+/*import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { User } from '../models/user.model';
 
@@ -8,3 +8,4 @@ const generateToken = (user: User): string => {
     return jwt.sign({ sub: user.id }, secret);
 };
 export default generateToken;
+*/

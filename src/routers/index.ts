@@ -1,7 +1,6 @@
 import { Router } from 'express';
+import studentRouter from './student.router';
 const router = Router();
 
-router.use('/', ()=>{
-    console.log("hi");
-});
+router.use('/student', studentRouter);
 export default router;

@@ -5,14 +5,14 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 
-const app : Application= express();
+const app: Application = express();
 const address = '0.0.0.0:3000';
 
 app.use(bodyParser.json());
 
-app.use(cors(), json(), helmet(), morgan('dev'));
+app.use(json(), helmet(), morgan('dev'));
 
-app.use('/', router);
+app.use('/v0', router);
 
 app.listen(3000, function () {
     console.log(`starting app on: ${address}`);
