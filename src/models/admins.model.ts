@@ -76,6 +76,16 @@ class AdminModel {
             return null;
         }
     }
+    async uniqueNational(national_id:string):Promise<boolean>{
+        const { rows } = await db.query('select * from admins where national_id=$1', [national_id]);
+        if(rows.length)return false;
+        else return true;
+    }
+    async uniqueUsername(username:string):Promise<boolean>{
+        const { rows } = await db.query('select * from admins where username=$1', [username]);
+        if(rows.length)return false;
+        else return true;
+    }
 }
 
 export default AdminModel;
