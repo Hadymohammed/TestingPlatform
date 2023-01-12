@@ -17,7 +17,6 @@ const varifyStudent = async (
         if (
            dbStudent && bcrypt.compareSync(password+pepper,dbStudent.password as string)
         ) {
-            delete dbStudent.password;
             return dbStudent;
         } else {
             return null;
@@ -25,7 +24,6 @@ const varifyStudent = async (
     } catch (err) {
         return null;
     }
-    return null;
 };
 const varifyAdmin = async (
     national: string,
@@ -33,8 +31,7 @@ const varifyAdmin = async (
 ): Promise<Admin | null> => {
     try {
         const dbAdmin = await adminEntity.getByNational(national);
-        if (bcrypt.compareSync(password + pepper, dbAdmin.password as string)) {
-            delete dbAdmin.password;
+        if (dbAdmin && bcrypt.compareSync(password + pepper, dbAdmin.password as string)) {
             return dbAdmin;
         } else {
             return null;
@@ -42,7 +39,6 @@ const varifyAdmin = async (
     } catch (err) {
         return null;
     }
-    return null;
 };
 
 export { varifyStudent, varifyAdmin };

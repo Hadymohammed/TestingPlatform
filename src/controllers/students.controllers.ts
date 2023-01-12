@@ -14,7 +14,7 @@ const index=async(req:Request,res:Response):Promise<void>=>{
     catch(err){
         res.status(500).send(err);
     }
-};8
+};
 const getById=async(req:Request,res:Response):Promise<void>=>{
     try{
         const student_id=req.body.student_id;
