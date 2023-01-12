@@ -80,6 +80,21 @@ class StudentModel {
             return student;
         }
     }
+    async uniqueNational(national_id:string):Promise<boolean>{
+        const { rows } = await db.query('select * from students where national_id=$1', [national_id]);
+        if(rows.length)return false;
+        else return true;
+    }
+    async uniqueUsername(username:string):Promise<boolean>{
+        const { rows } = await db.query('select * from students where username=$1', [username]);
+        if(rows.length)return false;
+        else return true;
+    }
+    async uniqueUniversityId(uid:string):Promise<boolean>{
+        const { rows } = await db.query('select * from students where university_id=$1', [uid]);
+        if(rows.length)return false;
+        else return true;
+    }
 }
 
 export default StudentModel;

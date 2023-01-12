@@ -18,6 +18,7 @@ const index=async(req:Request,res:Response):Promise<void>=>{
 const getById=async(req:Request,res:Response):Promise<void>=>{
     try{
         const student_id=req.body.student_id;
+        if(student_id==null){res.status(400).send('student_id is missing');return;}
         const student= await studentEntity.getById(student_id);
         if(student)
             res.send(student);
@@ -30,6 +31,7 @@ const getById=async(req:Request,res:Response):Promise<void>=>{
 }
 const getByNational=async(req:Request,res:Response):Promise<void>=>{
     const student_nid=req.body.national_id;
+    if(student_nid==null){res.status(400).send('student_nid is missing');return;}
     try{
         const student= await studentEntity.getByNational(student_nid);
         if(student){
@@ -46,6 +48,7 @@ const getByNational=async(req:Request,res:Response):Promise<void>=>{
 const getByUsername=async(req:Request,res:Response):Promise<void>=>{
     try{
         const username=req.body.username;
+        if(username==null){res.status(400).send('username is missing');return;}
         const student:Student= await studentEntity.getByUsername(username);
         res.send(student);
         }
@@ -57,6 +60,12 @@ const login=async(req:Request,res:Response):Promise<void>=>{
     try{
         const national=req.body.national_id;
         const password=req.body.password;
+        //params validation
+        let missingParam:string[]=[];
+        if(national==null)missingParam.push('national_id');
+        if(password==null)missingParam.push('password');
+        if(missingParam.length){res.status(400).send('Missing Parameters : '+missingParam);return;}
+
         const student=await varifyStudent(national,password);
         console.log(student);
         if(student!=null){
@@ -77,10 +86,21 @@ const register=async (req:Request,res:Response):Promise<void>=>{
             university_id:req.body.university_id,
             username:req.body.username
         }
-        // todo validation
-        /*
-        unique username,national_id
-        */
+       //params validation
+       let missingParam:string[]=[];
+       if(student.name==null)missingParam.push('name');
+       if(student.national_id==null)missingParam.push('national_id');
+       if(student.password==null)missingParam.push('password');
+       if(student.username==null)missingParam.push('username');
+
+       if(missingParam.length){res.status(400).send('Missing Parameters : '+missingParam);return;}
+       // unique keys validation
+       let uniqueError:string[]=[];
+       if(await studentEntity.uniqueUsername(student.username) == false)uniqueError.push('username');
+       if(await studentEntity.uniqueNational(student.national_id) == false)uniqueError.push('national_id');
+       if(student.university_id!=null&&await studentEntity.uniqueUniversityId(student.university_id) == false) uniqueError.push('university_id');
+       if(uniqueError.length){res.status(400).send('reserved keys : '+uniqueError);return;}
+
         student.password=hash(student.password as string);
         const dbStudent=await studentEntity.create(student);
         res.send(dbStudent);
