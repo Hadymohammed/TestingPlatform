@@ -15,7 +15,8 @@ const varifyStudent = async (
     try {
         const dbStudent = await studentEntity.getByNational(national);
         if (
-           dbStudent && bcrypt.compareSync(password+pepper,dbStudent.password as string)
+            dbStudent &&
+            bcrypt.compareSync(password + pepper, dbStudent.password as string)
         ) {
             return dbStudent;
         } else {
@@ -31,7 +32,10 @@ const varifyAdmin = async (
 ): Promise<Admin | null> => {
     try {
         const dbAdmin = await adminEntity.getByNational(national);
-        if (dbAdmin && bcrypt.compareSync(password + pepper, dbAdmin.password as string)) {
+        if (
+            dbAdmin &&
+            bcrypt.compareSync(password + pepper, dbAdmin.password as string)
+        ) {
             return dbAdmin;
         } else {
             return null;

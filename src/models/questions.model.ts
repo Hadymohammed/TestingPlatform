@@ -49,7 +49,9 @@ class QuestionModel {
         }
     }
     async getById(id: number): Promise<Question> {
-        const { rows } = await db.query('select * from questions where id=$1', [id]);
+        const { rows } = await db.query('select * from questions where id=$1', [
+            id,
+        ]);
         return rows[0];
     }
     async getBySubject(subject: Subject): Promise<Question[]> {

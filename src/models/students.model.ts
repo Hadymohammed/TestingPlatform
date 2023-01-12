@@ -32,25 +32,30 @@ class StudentModel {
         return rows[0];
     }
     async getById(id: number): Promise<Student | null> {
-        const { rows } = await db.query('select * from students where id=$1', [id]);
-       if(rows.length){
-         delete rows[0].password;
-        return rows[0];}
+        const { rows } = await db.query('select * from students where id=$1', [
+            id,
+        ]);
+        if (rows.length) {
+            delete rows[0].password;
+            return rows[0];
+        }
         return null;
     }
     async getByNational(nid: string): Promise<Student | null> {
         const { rows } = await db.query(
             'select * from students where national_id=$1',
-            [nid],
+            [nid]
         );
-        if(rows.length){
-            return rows[0];}
+        if (rows.length) {
+            return rows[0];
+        }
         return null;
     }
     async getByUsername(username: string): Promise<Student> {
-        const { rows } = await db.query('select * from students where username=$1', [
-            username,
-        ]);
+        const { rows } = await db.query(
+            'select * from students where username=$1',
+            [username]
+        );
         delete rows[0].password;
         return rows[0];
     }
@@ -80,19 +85,28 @@ class StudentModel {
             return student;
         }
     }
-    async uniqueNational(national_id:string):Promise<boolean>{
-        const { rows } = await db.query('select * from students where national_id=$1', [national_id]);
-        if(rows.length)return false;
+    async uniqueNational(national_id: string): Promise<boolean> {
+        const { rows } = await db.query(
+            'select * from students where national_id=$1',
+            [national_id]
+        );
+        if (rows.length) return false;
         else return true;
     }
-    async uniqueUsername(username:string):Promise<boolean>{
-        const { rows } = await db.query('select * from students where username=$1', [username]);
-        if(rows.length)return false;
+    async uniqueUsername(username: string): Promise<boolean> {
+        const { rows } = await db.query(
+            'select * from students where username=$1',
+            [username]
+        );
+        if (rows.length) return false;
         else return true;
     }
-    async uniqueUniversityId(uid:string):Promise<boolean>{
-        const { rows } = await db.query('select * from students where university_id=$1', [uid]);
-        if(rows.length)return false;
+    async uniqueUniversityId(uid: string): Promise<boolean> {
+        const { rows } = await db.query(
+            'select * from students where university_id=$1',
+            [uid]
+        );
+        if (rows.length) return false;
         else return true;
     }
 }

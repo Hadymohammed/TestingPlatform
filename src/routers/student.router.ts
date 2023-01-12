@@ -13,7 +13,7 @@ const studentRouter = Router();
 
 studentRouter.get('/', index);
 studentRouter.get('/id', getById);
-studentRouter.get('/national',logger, getByNational);
+studentRouter.get('/national', logger, getByNational);
 studentRouter.get('/username', getByUsername);
 studentRouter.get('/login', login);
 

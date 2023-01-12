@@ -30,7 +30,9 @@ class TestModel {
         return rows[0];
     }
     async getById(id: number): Promise<Test> {
-        const { rows } = await db.query('select * from tests where id=$1', [id]);
+        const { rows } = await db.query('select * from tests where id=$1', [
+            id,
+        ]);
         return rows[0];
     }
     async updateById(Test: Test): Promise<Test> {
@@ -53,9 +55,10 @@ class TestModel {
     }
     async deleteById(Test: Test): Promise<Test> {
         try {
-            const { rows } = await db.query('delete from tests where id=$1 RETURNING *', [
-                Test.id,
-            ]);
+            const { rows } = await db.query(
+                'delete from tests where id=$1 RETURNING *',
+                [Test.id]
+            );
             return rows[0];
         } catch (err) {
             Test.id = 0;

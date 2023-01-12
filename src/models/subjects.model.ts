@@ -18,7 +18,9 @@ class SubjectModel {
         return rows[0];
     }
     async getById(id: number): Promise<Subject> {
-        const { rows } = await db.query('select * from subjects where id=$1', [id]);
+        const { rows } = await db.query('select * from subjects where id=$1', [
+            id,
+        ]);
         return rows[0];
     }
     async updateById(subject: Subject): Promise<Subject> {
