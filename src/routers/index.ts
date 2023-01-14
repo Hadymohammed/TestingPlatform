@@ -6,5 +6,5 @@ const router = Router();
 
 router.use('/student', studentRouter);
 router.use('/admin', adminRouter);
-router.use('/subject',subjectRouter);
+router.use('/subject', subjectRouter);
 export default router;

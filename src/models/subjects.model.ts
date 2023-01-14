@@ -21,11 +21,13 @@ class SubjectModel {
         const { rows } = await db.query('select * from subjects where id=$1', [
             id,
         ]);
-        if(rows.length) return rows[0];
+        if (rows.length) return rows[0];
         else return null;
     }
     async getByName(name: string): Promise<Subject[]> {
-        const { rows } = await db.query(`select * from subjects where name like '%${name}%'`);
+        const { rows } = await db.query(
+            `select * from subjects where name like '%${name}%'`
+        );
         return rows;
     }
     async updateById(subject: Subject): Promise<Subject | null> {
@@ -34,7 +36,7 @@ class SubjectModel {
                 'update subjects set name=$2 where id=$1 RETURNING *',
                 [subject.id]
             );
-            if(rows.length)return rows[0];
+            if (rows.length) return rows[0];
             else return null;
         } catch (err) {
             subject.id = 0;
@@ -47,7 +49,7 @@ class SubjectModel {
                 'delete from subjects where id=$1 RETURNING *',
                 [subject.id]
             );
-            if(rows.length) return rows[0];
+            if (rows.length) return rows[0];
             else return null;
         } catch (err) {
             subject.id = 0;
