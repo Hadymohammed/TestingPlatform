@@ -48,11 +48,12 @@ class QuestionModel {
             return question;
         }
     }
-    async getById(id: number): Promise<Question> {
+    async getById(id: number): Promise<Question | null> {
         const { rows } = await db.query('select * from questions where id=$1', [
             id,
         ]);
-        return rows[0];
+       if(rows.length) return rows[0];
+       else return null;
     }
     async getBySubject(subject: Subject): Promise<Question[]> {
         const { rows } = await db.query(
@@ -61,13 +62,14 @@ class QuestionModel {
         );
         return rows;
     }
-    async updateById(question: Question): Promise<Question> {
+    async updateById(question: Question): Promise<Question  | null> {
         try {
             const { rows } = await db.query(
                 'update questions set content=$2,subject_id=$3,option1=$4,option2=$5,option3=$6,option4=$7,correct_answer=$8  where id=$1 RETURNING *',
                 [
                     question.id,
                     question.content,
+                    question.subject_id,
                     question.option1,
                     question.option2,
                     question.option3,
@@ -75,10 +77,11 @@ class QuestionModel {
                     question.correct_answer,
                 ]
             );
-            return rows[0];
+            if(rows.length)return rows[0];
+            return null;
         } catch (err) {
-            question.id = 0; //error
-            return question;
+            console.log(err);
+            return null;
         }
     }
     async deleteById(question: Question): Promise<Question> {
