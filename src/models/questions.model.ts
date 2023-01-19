@@ -84,17 +84,17 @@ class QuestionModel {
             return null;
         }
     }
-    async deleteById(question: Question): Promise<Question> {
+    async deleteById(question: Question): Promise<Question |null> {
         try {
             const { rows } = await db.query(
                 'delete from questions where id=$1 RETURNING *',
                 [question.id]
             );
-            delete rows[0].password;
-            return rows[0];
+            if(rows.length)
+                return rows[0];
+            else return null
         } catch (err) {
-            question.id = 0; //error
-            return question;
+            return null;
         }
     }
     //////Question for student//////

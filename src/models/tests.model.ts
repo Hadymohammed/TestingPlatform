@@ -16,7 +16,7 @@ class TestModel {
         const { rows } = await db.query('SELECT * FROM tests');
         return rows;
     }
-    async create(Test: Test): Promise<Test[]> {
+    async create(Test: Test): Promise<Test | null> {
         const { rows } = await db.query(
             'insert into tests (title,total_questions,timer,creator_id,date) values ($1,$2,$3,$4,$5) RETURNING *',
             [
@@ -27,15 +27,17 @@ class TestModel {
                 Test.date,
             ]
         );
-        return rows[0];
+        if(rows.length)return rows[0];
+        else return null;
     }
-    async getById(id: number): Promise<Test> {
+    async getById(id: number): Promise<Test | null> {
         const { rows } = await db.query('select * from tests where id=$1', [
             id,
         ]);
-        return rows[0];
+        if(rows.length)return rows[0];
+        else return null;
     }
-    async updateById(Test: Test): Promise<Test> {
+    async updateById(Test: Test): Promise<Test|null> {
         try {
             const { rows } = await db.query(
                 'update tests set title=$2,total_questions=$3,timer=$4,date=$5 where id=$1 RETURNING *',
@@ -47,10 +49,10 @@ class TestModel {
                     Test.date,
                 ]
             );
-            return rows[0];
+            if(rows.length)return rows[0];
+            else return null;
         } catch (err) {
-            Test.id = 0;
-            return Test;
+            return null;
         }
     }
     async deleteById(Test: Test): Promise<Test> {
