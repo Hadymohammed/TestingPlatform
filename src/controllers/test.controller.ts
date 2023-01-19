@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import QuestionModel from "../models/questions.model";
 import TestModel, { Test } from "../models/tests.model";
 import missingKeys from "../services/varifyRequestBody.services";
 
@@ -66,5 +67,57 @@ const updateTest=async (req:Request,res:Response):Promise<void>=>{
         res.status(500).send(err);
     }
 }
+/****Questions****/
+const questionEntity=new QuestionModel();
+const getQuestionsInTest=async(req:Request,res:Response):Promise<void>=>{
+    const missing=missingKeys(req,['test_id']);
+    if(missing.length){
+        res.status(400).send('missing data : '+missing);
+        return;
+    }
+    try{
+        const dbQuestions=await testEntity.getQuestions(req.body.test_id);
+        if(dbQuestions)res.send(dbQuestions);
+        else res.status(500).send('invalid data');
+    }catch(err){
+        res.status(500).send(err);
+    }
 
-export {getAllTests,getTestById,createTest,updateTest};
+}
+const addQuestionToTest=async (req:Request,res:Response):Promise<void>=>{
+    const missing=missingKeys(req,['test_id','question_id','score']);
+    if(missing.length){
+        res.status(400).send('missing data : '+missing);
+        return;
+    }
+
+    try{
+        const test_id=req.body.test_id;
+        const question_id=req.body.question_id;
+        const score=req.body.score;
+        const dbQuestion=await questionEntity.addQuestionToTest(test_id,question_id,score);
+        if(dbQuestion)res.send(dbQuestion);
+        else res.status(400).send('invalid data');
+    }catch(err){
+        res.status(500).send(err);
+    }
+}
+const removeQuestionFromTest=async (req:Request,res:Response):Promise<void>=>{
+    const missing=missingKeys(req,['test_id','question_id']);
+    if(missing.length){
+        res.status(500).send('missing data : '+missing);
+        return;
+    }
+
+    try{
+        const test_id=req.body.test_id;
+        const question_id=req.body.question_id;
+        const dbQuestion=await questionEntity.deleteQuestionFromTest(test_id,question_id);
+        if(dbQuestion)res.send(dbQuestion);
+        else res.status(400).send('invalid data');
+    }catch(err){
+        res.status(500).send(err);
+    }
+}
+
+export {getAllTests,getTestById,createTest,updateTest,addQuestionToTest,removeQuestionFromTest,getQuestionsInTest};

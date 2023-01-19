@@ -1,4 +1,5 @@
 import db from '../providers/database.provider';
+import { Question } from './questions.model';
 import { Student } from './students.model';
 
 export interface Test {
@@ -68,30 +69,47 @@ class TestModel {
         }
     }
     ///////Test_For_Student////////
-    async addToStudent(test: Test, student: Student): Promise<Test> {
+    async addToStudent(test_id:number, student_id: number): Promise<Test|null> {
         try {
             const { rows } = await db.query(
-                'insert into tests_for_student (test_id,student_id) values ($1,$2) RETURNING *',
-                [test.id, student.id]
+                'insert into testforstudent (test_id,student_id) values ($1,$2) RETURNING *',
+                [test_id, student_id]
             );
-            test.student_id = rows[0].student_id;
-            return test;
+            if(rows.length)return rows[0];
+            else return null;
         } catch (err) {
-            test.id = 0; //error
-            return test;
+            return null;
         }
     }
-    async deleteFromStudent(test: Test, student: Student): Promise<Test> {
+    async deleteFromStudent(test_id:number, student_id: number): Promise<Test|null> {
         try {
             const { rows } = await db.query(
-                'delete from tests_for_student where student_id=$1 and test_id=$2 RETURNING *',
-                [student.id, test.id]
+                'delete from testforstudent where student_id=$1 and test_id=$2 RETURNING *',
+                [student_id, test_id]
             );
-            test.student_id = rows[0].student_id;
-            return test;
+           if(rows.length)return rows[0];
+           else return null;
         } catch (err) {
-            test.id = 0; //error
-            return test;
+            return null;
+        }
+    }
+    async getStudents(test_id:number):Promise<Student[]>{
+        const {rows} = await db.query(
+            'select students.name,students.username,students.national_id,students.university_id from testforstudent join students on testforstudent.student_id=students.id where testforstudent.test_id=$1',
+            [test_id]
+        )
+        return rows;
+    }
+    /////questions//////
+    async getQuestions(test_id:string): Promise<Question[]|null> {
+        try{
+            const {rows}=await db.query(
+                'select questions.content,questions.option1,questions.option2,questions.option3,questions.option4,questions.correct_answer,testquestion.score,testquestion.test_id,testquestion.question_id from testquestion join questions on testQuestion.question_id=questions.id where testQuestion.test_id=$1',
+                [test_id]
+            )
+            return rows;
+        }catch(err){
+            return null;
         }
     }
 }
