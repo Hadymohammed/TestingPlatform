@@ -76,7 +76,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
         console.log(student);
         if (student != null) {
             res.send(student);
-        } else res.send('Wrong national Id or password');
+        } else res.status(401).send('Wrong national Id or password');
     } catch (err) {
         res.status(500).send(err);
     }
