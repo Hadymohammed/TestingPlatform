@@ -36,8 +36,12 @@ npm run dev
 - Open http://127.0.0.1:3000/v0
 ## How to use
 ### End Points
-#### /student
-- GET : /
+<details>
+<summary>/student</summary>
+
+- <details>
+    <summary>GET : /</summary>
+
     * Get all students
     * No body needed
     * Response body
@@ -54,7 +58,10 @@ npm run dev
                 }
             ]
             ```
-- Get : /national
+    </details>
+- <details>
+    <summary>GET : /national</summary>
+
     * Get user using national ID
     * Request body : JSON
         ```json
@@ -73,7 +80,10 @@ npm run dev
                 "university_id": "2020191071"
             }
             ```
-- Get : /id
+    </details>
+- <details>
+    <summary>GET : /id</summary>
+
     * Get user using ID
     * Request body : JSON
         ```json
@@ -92,7 +102,9 @@ npm run dev
                 "university_id": "2020191071"
             }
             ```
-- Get : /login 
+    </details>
+- <details>
+    <summary>GET : /login </summary>
     * Student login
     * Request body : JSON
         ```json
@@ -117,7 +129,10 @@ npm run dev
             ```
             Wrong national Id or password
             ```
-- POST : /
+    </details>
+- <details>
+    <summary>POST : /</summary>
+
     * Create new student
     * Request body : JSON
         ```json
@@ -146,3 +161,5 @@ npm run dev
             ```
             reserved keys : key1,key2
             ```
+    </details>
+</details>
