@@ -43,7 +43,7 @@ const getByNational = async (req: Request, res: Response): Promise<void> => {
             delete admin.password;
             res.send(admin);
         } else {
-            res.send('Invalid national_id');
+            res.status(400).send('Invalid national_id');
         }
     } catch (err) {
         res.send(err);
@@ -61,7 +61,7 @@ const getByUsername = async (req: Request, res: Response): Promise<void> => {
             delete admin.password;
             res.send(admin);
         } else {
-            res.send('Invalid username');
+            res.status(400).send('Invalid username');
         }
     } catch (err) {
         res.send(err);
