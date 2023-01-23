@@ -4,8 +4,9 @@ Testing platform RESTFul API integrated with PostgreSql database for faculty onl
 - [Features v0](#features-v0)
 - [How to start](#how-to-start)
 - [End Points](#end-points)
-    * [Student](#student)
-    * [Admin](#admin)
+    * [Student](#Student)
+    * [Admin](#Admin)
+    * [Question](#question)
 ## features v0
 - Create student account.
 - Admins add questions and create tests.
@@ -37,7 +38,7 @@ npm run dev
 - Open http://127.0.0.1:3000/v0
 ## How to use
 ### End Points
-#### student
+#### Student
 - v0 : create ,login and get students using nationalId/Id
 - <details>
     <summary>/student</summary>
@@ -168,7 +169,7 @@ npm run dev
     </details>
 </details>
 
-#### admin
+#### Admin
 - v0 : create ,login and get admins using username
 - <details>
     <summary>/admin</summary>
@@ -259,4 +260,192 @@ npm run dev
             ```
         * status(400): ``` reserved keys : key1,key2  ```
     </details>
+</details>
+
+#### Subject
+- future feature , add question tags 
+- <details>
+    <summary>/subject</summary>
+
+    - <details>
+        <summary>GET : /</summary>
+        
+        * Get all tags
+        * No Request body required
+        * Response body
+            * status(200)
+                ```json
+                    [
+                        {
+                            "id": 1,
+                            "name": "Math"
+                        },
+                        {
+                            "id": 2,
+                            "name": "Sport"
+                        }
+                        ]
+                ```
+        </details>
+    - <details>
+        <summary>GET : /id</summary>
+
+        * Get tag by id
+        * Request body:
+            ```json
+                {
+                "id":2
+                }
+            ```
+        * Response body
+            * status(200):
+                ```json
+                    {
+                    "id": 2,
+                    "name": "Sport"
+                    }
+                ```
+            * status(400): ``` No such Id ```
+
+        </details>
+    - <details>
+        <summary>POST : /</summary>
+
+        * create new tag
+        * Request body:
+            ```json
+                {
+                "name":"Sport"
+                }
+            ```
+        * Response body
+            * status(200):
+                ```json
+                    {
+                    "id": 2,
+                    "name": "Sport"
+                    }
+                ```
+
+        </details>
+</details>
+
+#### Question
+- v0 : Create , update and get questions using id
+- <details>
+    <summary>/question</summary>
+
+    - <details>
+        <summmary>GET : / </summary>
+
+        * Get all questions
+        * No request body required
+        * Response body
+            * status(200):
+                ```json
+                [
+                    {
+                        "id": 1,
+                        "content": "Which team won qatar 2022 nationals world cup",
+                        "subject_id": 2,
+                        "option1": "Egypt",
+                        "option2": "France",
+                        "option3": "Argantina",
+                        "option4": "Brazil",
+                        "correct_answer": "Argantina"
+                    }
+                ]
+                ```
+        </details>
+    - <details>
+        <summary>POST : /create</summary>
+
+        * Create new question
+        * Request body:
+            ```json
+            {
+            "content":"Which team won qatar 2022 world cup",
+            "subject_id":"2",
+            "option1":"Egypt",
+            "option2":"France",
+            "option3":"Argantina",
+            "option4":"Brazil",
+            "correct_answer":"Argantina"
+            }
+            ```
+        * Response body
+            * status(200):
+                ```json
+                {
+                "id": 1,
+                "content": "Which team won qatar 2022 world cup",
+                "subject_id": 2,
+                "option1": "Egypt",
+                "option2": "France",
+                "option3": "Argantina",
+                "option4": "Brazil",
+                "correct_answer": "Argantina"
+                }
+                ```
+        </details>
+    - <details>
+        <summary>GET : /id</summary>
+
+        * Get question by id
+        * Request body:
+            ```json
+                {
+                "id":1
+                }
+            ```
+        * Response body
+            * status(200):
+                ```json
+                {
+                "id": 1,
+                "content": "Which team won qatar 2022 world cup",
+                "subject_id": 2,
+                "option1": "Egypt",
+                "option2": "France",
+                "option3": "Argantina",
+                "option4": "Brazil",
+                "correct_answer": "Argantina"
+                }
+                ```
+            * status(500) : ``` invalid id ```
+        </details>
+    - <details>
+        <summary>PATCH : /update</summary>
+
+        * Update existing question
+        * Request body:
+            ```json
+                {
+                    "id": 1,
+                    "content": "Which team won qatar 2022 nationals world cup",
+                    "subject_id": 2,
+                    "option1": "Egypt",
+                    "option2": "France",
+                    "option3": "Argantina",
+                    "option4": "Brazil",
+                    "correct_answer":"Argantina"
+                }
+            ```
+        * Response body
+            * status(200): //the entire question after edit
+                ```json
+                    {
+                    "id": 1,
+                    "content": "Which team won qatar 2022 nationals world cup",
+                    "subject_id": 2,
+                    "option1": "Egypt",
+                    "option2": "France",
+                    "option3": "Argantina",
+                    "option4": "Brazil",
+                    "correct_answer": "Argantina"
+                    }
+                ```
+            * status(500):  ```invalid id```
+        </details>
+
 </details>
