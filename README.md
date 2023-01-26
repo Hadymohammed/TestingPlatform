@@ -7,6 +7,9 @@ Testing platform RESTFul API integrated with PostgreSql database for faculty onl
     * [Student](#Student)
     * [Admin](#Admin)
     * [Question](#question)
+    * [Test](#test)
+        - [Test_Questions](#test-questions)
+        - [Test_students](#test-to-student)
 ## features v0
 - Create student account.
 - Admins add questions and create tests.
@@ -556,5 +559,166 @@ npm run dev
                 ```
             - status(500):``` Internal Server Error : wrong id```
         </details>
-
 </details>
+
+- #### Test questions
+    - Add,remove and get question for test.
+    - <details>
+        <summary>test/question</summary>
+
+        - <details>
+            <summary>GET : /</summary>
+
+            - get all questions in a spacific test
+            - Request body:
+                ```json
+                    {
+                    "test_id":1
+                    }
+                ```
+            - Response body
+                - status(200):
+                    ```json
+                        [
+                        {
+                            "content": "Which team won qatar 2022 nationals world cup",
+                            "option1": "Egypt",
+                            "option2": "France",
+                            "option3": "Argantina",
+                            "option4": "Brazil",
+                            "correct_answer": "Argantina",
+                            "score": 1,
+                            "test_id": 1,
+                            "question_id": 1
+                        }
+                        ]
+                    ```
+                - status(400):```wrong test_id```
+            
+            </details>
+        - <details>
+            <summary>POST : /</summary>
+
+            - add question to test
+            - Request body:
+                ```json
+                    {
+                    "test_id":1,
+                    "question_id":1,
+                    "score":1
+                    }
+                ```
+            - Response body
+                - status(200):
+                    ```json
+                        {
+                        "id": 1,
+                        "question_id": 1,
+                        "test_id": 1,
+                        "score": 1
+                        }
+                    ```
+                - status(400):```wrong ids```
+            
+            </details>
+        - <details>
+            <summary>DELETE : /</summary>
+
+            - remove question from test
+            - Request body:
+                ```json
+                    {
+                    "test_id":1,
+                    "question_id":1
+                    }
+                ```
+            - Response body
+                - status(200):
+                    ```json
+                        {
+                        "id": 1,
+                        "question_id": 1,
+                        "test_id": 1,
+                        "score": 1
+                        }
+                    ```
+                - status(400):```invalid data```
+            
+            </details>
+
+    </details>
+
+- #### test to student
+    - Assign test to student
+    - <details>
+        <summary>/test/student</summary>
+
+        - <details>
+            <summary>GET : /</summary>
+
+            - Get all students assigned to a test
+            - Request body:
+                ```json
+                    {
+                        "test_id":1
+                    }
+                ```
+            - Response body
+                - status(200):
+                    ```json
+                        [
+                        {
+                            "name": "Abdelhady",
+                            "username": "HadyMohamed",
+                            "national_id": "1111",
+                            "university_id": "2222"
+                        }
+                        ]
+                    ```
+                - status(400):```invalid data```
+            </details>
+        - <details>
+            <summary>POST : /</summary>
+
+            - Assign test to a student
+            - Request body:
+                ```json
+                    {
+                        "test_id":1,
+                        "student_id":2
+                    }
+                ```
+            - Response body
+                - status(200):
+                    ```json
+                        {
+                        "id": 2,
+                        "test_id": 1,
+                        "student_id": 2
+                        }
+                    ```
+                - status(400):```invalid data```
+            </details>
+        - <details>
+            <summary>DELETE : /</summary>
+
+            - remove student from a test
+            - Request body:
+                ```json
+                    {
+                        "test_id":1,
+                        "student_id":1
+                    }
+                ```
+            - Response body
+                - status(200):
+                    ```json
+                        {
+                        "id": 1,
+                        "test_id": 1,
+                        "student_id": 1
+                        }
+                    ```
+                - status(400):```invalid data```
+            </details>
+    </details>
