@@ -449,3 +449,112 @@ npm run dev
         </details>
 
 </details>
+
+#### Test
+- v0 : Create, update , add questions and assign to student
+- <details>
+    <summary>/test</summary>
+
+    - <details>
+        <summary>GET : /</summary>
+
+        - get all tests in the system
+        - No request body required
+        - Response body
+            - status(200):
+                ```json
+                    [
+                    {
+                        "id": 1,
+                        "title": "Software Engineering",
+                        "date": "2023-01-18T22:00:00.000Z",
+                        "total_questions": 75,
+                        "timer": 120,
+                        "creator_id": 1
+                    }
+                    ]
+                ```
+        </details>
+    - <details>
+        <summary>GET : /id</summary>
+
+        - get test main data by id **without questions**
+        - Request body
+            ```json
+                {
+                    "id":1
+                }
+            ```
+        - Response body
+            - status(200):
+                ```json
+                    {
+                    "id": 1,
+                    "title": "Software Engineering",
+                    "date": "2023-01-18T22:00:00.000Z",
+                    "total_questions": 75,
+                    "timer": 120,
+                    "creator_id": 1
+                    }
+                ```
+            - status(400):```invalid id```
+        </details>
+    - <details>
+        <summary>POST : /</summary>
+
+        - Create new test
+        - Request body
+            ```json
+                {
+                "title":"Software Engineering",
+                "total_questions":50,
+                "timer":120,
+                "creator_id":1,
+                "date":"2023-01-19"
+                }
+            ```
+        - Response body
+            - status(200):
+                ```json
+                    {
+                    "id": 1,
+                    "title": "Software Engineering",
+                    "date": "2023-01-18T22:00:00.000Z",
+                    "total_questions": 50,
+                    "timer": 120,
+                    "creator_id": 1
+                    }
+                ```
+            - status(500):``` Internal Server Error : wrong admin id```
+        </details>
+    - <details>
+        <summary>PATCH : /update</summary>
+
+        - update test main data **not questions or students in the test**
+        - Request body
+            ```json
+                {
+                "id":1,
+                "title":"Software Engineering",
+                "total_questions":75,
+                "timer":120,
+                "creator_id":1,
+                "date":"2023-01-19"
+                }
+            ```
+        - Response body
+            - status(200):
+                ```json
+                    {
+                    "id": 1,
+                    "title": "Software Engineering",
+                    "date": "2023-01-18T22:00:00.000Z",
+                    "total_questions": 75,
+                    "timer": 120,
+                    "creator_id": 1
+                    }
+                ```
+            - status(500):``` Internal Server Error : wrong id```
+        </details>
+
+</details>
