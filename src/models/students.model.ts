@@ -12,12 +12,9 @@ export interface Student {
 class StudentModel {
     async getAll(): Promise<Student[]> {
         const { rows } = await db.query('SELECT * FROM students');
-        /*for(const row of rows){
-            delete row.password;
-        }*/
         return rows;
     }
-    async create(student: Student): Promise<Student> {
+    async create(student: Student): Promise<Student | null> {
         const { rows } = await db.query(
             'insert into students (name,username,password,national_id,university_id) values ($1,$2,$3,$4,$5) RETURNING *',
             [
@@ -28,8 +25,11 @@ class StudentModel {
                 student.university_id,
             ]
         );
-        delete rows[0].password;
-        return rows[0];
+        if(rows.length){
+            delete rows[0].password;
+            return rows[0];
+        }
+        else return null;
     }
     async getById(id: number): Promise<Student | null> {
         const { rows } = await db.query('select * from students where id=$1', [
@@ -51,15 +51,21 @@ class StudentModel {
         }
         return null;
     }
-    async getByUsername(username: string): Promise<Student> {
+    async getByUsername(username: string): Promise<Student | null> {
         const { rows } = await db.query(
             'select * from students where username=$1',
             [username]
         );
-        delete rows[0].password;
-        return rows[0];
+        if(rows.length){
+            delete rows[0].password;
+            return rows[0];
+        }
+        else return null;
     }
-    async updateById(student: Student): Promise<Student> {
+    
+    //! need refactoring
+    //* not used
+    async updateById(student: Student): Promise<Student> { 
         try {
             const { rows } = await db.query(
                 'update students set name=$2 where id=$1 RETURNING *',
@@ -72,6 +78,8 @@ class StudentModel {
             return student;
         }
     }
+    //! need refactoring
+    //* not used
     async updateByNationalId(student: Student): Promise<Student> {
         try {
             const { rows } = await db.query(

@@ -3,6 +3,7 @@ import { Response, Request } from 'express';
 import { defaults } from 'pg';
 import { varifyStudent } from '../services/varifyUser.services';
 import hash from '../services/hash.services';
+import missingKeys from '../services/varifyRequestBody.services';
 
 const studentEntity = new StudentModel();
 
@@ -16,69 +17,70 @@ const index = async (req: Request, res: Response): Promise<void> => {
 };
 const getById = async (req: Request, res: Response): Promise<void> => {
     try {
-        const student_id = req.body.student_id;
-        if (student_id == null) {
-            res.status(400).send('student_id is missing');
+        const missing=missingKeys(req,["id"]);
+        if (missing.length) {
+            res.status(400).send('Missing parameters : '+missing);
             return;
         }
+        const student_id = req.body.id;
         const student = await studentEntity.getById(student_id);
         if (student) res.send(student);
-        else res.send('Invalid Id');
+        else res.status(422).send('Wrong data');
     } catch (err) {
-        res.send(err);
+        res.status(500).send('Internal server error');
     }
 };
 const getByNational = async (req: Request, res: Response): Promise<void> => {
-    const student_nid = req.body.national_id;
-    if (student_nid == null) {
-        res.status(400).send('student_nid is missing');
+    const missing=missingKeys(req,["national_id"]);
+    if(missing.length){
+        res.status(400).send("Missing parameters : "+missing);
         return;
     }
+    const student_nid = req.body.national_id;
     try {
         const student = await studentEntity.getByNational(student_nid);
         if (student) {
             delete student.password;
             res.send(student);
         } else {
-            res.send('Invalid national Id');
+            res.status(422).send('Wrong data');
         }
     } catch (err) {
-        res.send(err);
+        res.status(500).send("Internal server error");
     }
 };
 const getByUsername = async (req: Request, res: Response): Promise<void> => {
     try {
-        const username = req.body.username;
-        if (username == null) {
-            res.status(400).send('username is missing');
+        const missing=missingKeys(req,["username"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
-        const student: Student = await studentEntity.getByUsername(username);
-        res.send(student);
+        const username = req.body.username;
+        const student = await studentEntity.getByUsername(username);
+        if(student)res.send(student);
+        else res.status(422).send("Wrong data");
     } catch (err) {
-        res.status(500).send('Invalid username');
+        res.status(500).send("Internal server error");
     }
 };
 const login = async (req: Request, res: Response): Promise<void> => {
     try {
-        const national = req.body.national_id;
-        const password = req.body.password;
         //params validation
-        let missingParam: string[] = [];
-        if (national == null) missingParam.push('national_id');
-        if (password == null) missingParam.push('password');
-        if (missingParam.length) {
-            res.status(400).send('Missing Parameters : ' + missingParam);
+        const missing=missingKeys(req,["national_id","password"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
+        const national = req.body.national_id;
+        const password = req.body.password;
 
         const student = await varifyStudent(national, password);
-        console.log(student);
         if (student != null) {
             res.send(student);
         } else res.status(401).send('Wrong national Id or password');
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send("Internal server error");
     }
 };
 const register = async (req: Request, res: Response): Promise<void> => {
@@ -91,16 +93,12 @@ const register = async (req: Request, res: Response): Promise<void> => {
             username: req.body.username,
         };
         //params validation
-        let missingParam: string[] = [];
-        if (student.name == null) missingParam.push('name');
-        if (student.national_id == null) missingParam.push('national_id');
-        if (student.password == null) missingParam.push('password');
-        if (student.username == null) missingParam.push('username');
-
-        if (missingParam.length) {
-            res.status(400).send('Missing Parameters : ' + missingParam);
+        const missing=missingKeys(req,["name","national_id","password","username"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
+
         // unique keys validation
         let uniqueError: string[] = [];
         if ((await studentEntity.uniqueUsername(student.username)) == false)
@@ -114,15 +112,16 @@ const register = async (req: Request, res: Response): Promise<void> => {
         )
             uniqueError.push('university_id');
         if (uniqueError.length) {
-            res.status(400).send('reserved keys : ' + uniqueError);
+            res.status(422).send('reserved keys : ' + uniqueError);
             return;
         }
 
         student.password = hash(student.password as string);
         const dbStudent = await studentEntity.create(student);
-        res.send(dbStudent);
+        if(dbStudent)res.send(dbStudent);
+        else res.status(500).send("Internal server error");
     } catch (err) {
-        res.send(err);
+        res.status(500).send("Internal server error");
     }
 };
 export { index, getById, getByNational, getByUsername, login, register };

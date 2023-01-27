@@ -87,6 +87,8 @@ npm run dev
                     "university_id": "2020191071"
                 }
                 ```
+            * status(422) : ```Wrong data```
+
         </details>
     - <details>
         <summary>GET : /id</summary>
@@ -95,7 +97,7 @@ npm run dev
         * Request body : JSON
             ```json
             {        
-                "student_id":5
+                "id":5
             }
             ```
         * Response body
@@ -109,6 +111,8 @@ npm run dev
                     "university_id": "2020191071"
                 }
                 ```
+            * status(422) : ```Wrong data```
+
         </details>
     - <details>
         <summary>GET : /login </summary>
@@ -133,10 +137,8 @@ npm run dev
                     "university_id": "2020191071"
                 }
                 ```
-            * status(401) : 
-                ```
-                Wrong national Id or password
-                ```
+            * status(401) : ```Wrong national Id or password```
+
         </details>
     - <details>
     <summary>POST : /</summary>
@@ -165,10 +167,7 @@ npm run dev
             }
             ```
 
-        * status(400) : 
-            ```
-            reserved keys : key1,key2
-            ```
+        * status(422) : ```reserved keys : key1,key2```
     </details>
 </details>
 
