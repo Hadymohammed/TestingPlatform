@@ -44,6 +44,8 @@ class AdminModel {
         if (rows.length) return rows[0];
         else return null;
     }
+    //! need refactoring
+    //* not used
     async updateById(admin: Admin): Promise<Admin | null> {
         try {
             const { rows } = await db.query(
@@ -56,6 +58,8 @@ class AdminModel {
             return null;
         }
     }
+    //! need refactoring
+    //* not used
     async updateByNationalId(admin: Admin): Promise<Admin | null> {
         try {
             const { rows } = await db.query(
@@ -68,6 +72,8 @@ class AdminModel {
             return null;
         }
     }
+    //! need refactoring
+    //* not used
     async deleteById(admin: Admin): Promise<Admin | null> {
         try {
             const { rows } = await db.query(

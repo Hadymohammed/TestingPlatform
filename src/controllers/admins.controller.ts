@@ -2,6 +2,7 @@ import AdminModel, { Admin } from '../models/admins.model';
 import { Request, Response } from 'express';
 import { varifyAdmin } from '../services/varifyUser.services';
 import hash from '../services/hash.services';
+import missingKeys from '../services/varifyRequestBody.services';
 const adminEntity = new AdminModel();
 
 const index = async (req: Request, res: Response): Promise<void> => {
@@ -15,56 +16,59 @@ const index = async (req: Request, res: Response): Promise<void> => {
 };
 const getById = async (req: Request, res: Response): Promise<void> => {
     try {
-        const id = req.body.admin_id;
-        if (id == null) {
-            res.status(400).send('admin_id is missing');
+        const missing=missingKeys(req,["id"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
+        const id = req.body.id;
         const admin = await adminEntity.getById(id);
         if (admin) {
             delete admin.password;
             res.send(admin);
         } else {
-            res.send('Invalid Id');
+            res.status(422).send('Wrong data');
         }
     } catch (err) {
-        res.send(err);
+        res.status(500).send("Internal server error");
     }
 };
 const getByNational = async (req: Request, res: Response): Promise<void> => {
     try {
-        const nid = req.body.national_id;
-        if (nid == null) {
-            res.status(400).send('national_id is missing');
+        const missing=missingKeys(req,["national_id"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
+        const nid = req.body.national_id;
         const admin = await adminEntity.getByNational(nid);
         if (admin) {
             delete admin.password;
             res.send(admin);
         } else {
-            res.status(400).send('Invalid national_id');
+            res.status(422).send('Wrong data');
         }
     } catch (err) {
-        res.send(err);
+        res.status(500).send("Internal server error");
     }
 };
 const getByUsername = async (req: Request, res: Response): Promise<void> => {
     try {
-        const username = req.body.username;
-        if (username == null) {
-            res.status(400).send('username is missing');
+        const missing=missingKeys(req,["username"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
+        const username = req.body.username;
         const admin = await adminEntity.getByUsername(username);
         if (admin) {
             delete admin.password;
             res.send(admin);
         } else {
-            res.status(400).send('Invalid username');
+            res.status(422).send('Wrong data');
         }
     } catch (err) {
-        res.send(err);
+        res.status(500).send("Internal server error");
     }
 };
 const login = async (req: Request, res: Response): Promise<void> => {
@@ -73,11 +77,9 @@ const login = async (req: Request, res: Response): Promise<void> => {
         const password = req.body.password;
 
         /*param validation*/
-        let missingParam: string[] = [];
-        if (national == null) missingParam.push('national_id');
-        if (password == null) missingParam.push('password');
-        if (missingParam.length) {
-            res.status(400).send('Missing Parameters : ' + missingParam);
+        const missing=missingKeys(req,["national_id","password"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
 
@@ -87,7 +89,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
             res.send(admin);
         } else res.status(401).send('Wrong national Id or password');
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send("Internal server error");
     }
 };
 const register = async (req: Request, res: Response): Promise<void> => {
@@ -99,14 +101,9 @@ const register = async (req: Request, res: Response): Promise<void> => {
             username: req.body.username,
         };
         //params validation
-        let missingParam: string[] = [];
-        if (admin.name == null) missingParam.push('name');
-        if (admin.national_id == null) missingParam.push('national_id');
-        if (admin.password == null) missingParam.push('password');
-        if (admin.username == null) missingParam.push('username');
-
-        if (missingParam.length) {
-            res.status(400).send('Missing Parameters : ' + missingParam);
+        const missing=missingKeys(req,["name","username","national_id","password"]);
+        if(missing.length){
+            res.status(400).send("Missing parameters : "+missing);
             return;
         }
         // unique keys validation
@@ -116,7 +113,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
         if ((await adminEntity.uniqueNational(admin.national_id)) == false)
             uniqueError.push('national_id');
         if (uniqueError.length) {
-            res.status(400).send('reserved keys : ' + uniqueError);
+            res.status(422).send('reserved keys : ' + uniqueError);
             return;
         }
 
@@ -126,10 +123,10 @@ const register = async (req: Request, res: Response): Promise<void> => {
             delete dbAdmin.password;
             res.send(dbAdmin);
         } else {
-            res.send('Missing data');
+            res.status(500).send('Internal server error');
         }
     } catch (err) {
-        res.send(err);
+        res.status(500).send("Internal server error");
     }
 };
 export { index, getById, getByNational, getByUsername, login, register };

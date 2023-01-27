@@ -214,7 +214,8 @@ npm run dev
                     "national_id": "2323"
                 }
                 ```
-            * status(400) : ```Invalid username```
+            * status(422) : ```Wrong data```
+
         </details>
     - <details>
         <summary>GET : /login</summary>
@@ -286,7 +287,7 @@ npm run dev
                             "id": 2,
                             "name": "Sport"
                         }
-                        ]
+                    ]
                 ```
         </details>
     - <details>
