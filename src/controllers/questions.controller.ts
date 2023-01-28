@@ -28,9 +28,12 @@ const addQuestion=async(req:Request,res:Response):Promise<void>=>{
    }
    try{
    const dbQ=await questionEntity.create(question);
-   res.send(dbQ);
+    if(dbQ)
+        res.send(dbQ);
+    else 
+        res.status(422).send("Wrong data");
    }catch(err){
-    res.status(500).send(err);
+    res.status(500).send("Internal server error");
    }
 }
 const getById =async(req:Request,res:Response):Promise<void>=>{
@@ -43,9 +46,9 @@ const getById =async(req:Request,res:Response):Promise<void>=>{
         const id=req.body.id;
         const question=await questionEntity.getById(id);
         if(question)res.send(question);
-        else res.status(500).send('invalid id');
+        else res.status(422).send('Wrong data');
    }catch(err){
-        res.status(500).send(err);
+        res.status(500).send("Internal server error");
    }
 }
 const updateQuestion=async (req:Request,res:Response):Promise<void>=>{
@@ -67,9 +70,9 @@ const updateQuestion=async (req:Request,res:Response):Promise<void>=>{
    try{
    const dbQ=await questionEntity.updateById(question);
    if(dbQ)res.send(dbQ);
-   else res.status(500).send('invalid id');
+   else res.status(422).send('Wrong data');
    }catch(err){
-    res.status(500).send(err);
+    res.status(500).send("Internal server error");
    }
 }
 

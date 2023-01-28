@@ -21,19 +21,24 @@ class QuestionModel {
         return rows;
     }
     async create(question: Question): Promise<Question | null> {
-        const { rows } = await db.query(
-            'insert into questions (content,subject_id,option1,option2,option3,option4,correct_answer) values ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
-            [
-                question.content,
-                question.subject_id,
-                question.option1,
-                question.option2,
-                question.option3,
-                question.option4,
-                question.correct_answer,
-            ]
-        );
-        return rows[0];
+        try{
+            const { rows } = await db.query(
+                'insert into questions (content,subject_id,option1,option2,option3,option4,correct_answer) values ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
+                [
+                    question.content,
+                    question.subject_id,
+                    question.option1,
+                    question.option2,
+                    question.option3,
+                    question.option4,
+                    question.correct_answer,
+                ]
+            );
+            if(rows.length)return rows[0];
+            else return null;
+        }catch(err){
+            return null;
+        }
     }
     async getById(id: number): Promise<Question | null> {
         const { rows } = await db.query('select * from questions where id=$1', [
@@ -42,6 +47,7 @@ class QuestionModel {
         if(rows.length) return rows[0];
         else return null;
     }
+    //* Not used
     async getBySubject(subject: Subject): Promise<Question[]> {
         const { rows } = await db.query(
             'select * from questions where subject_id=$1',
@@ -49,23 +55,23 @@ class QuestionModel {
             );
             return rows;
         }
-        async updateById(question: Question): Promise<Question  | null> {
-            try {
-                const { rows } = await db.query(
-                    'update questions set content=$2,subject_id=$3,option1=$4,option2=$5,option3=$6,option4=$7,correct_answer=$8  where id=$1 RETURNING *',
-                    [
-                        question.id,
-                        question.content,
-                        question.subject_id,
-                        question.option1,
-                        question.option2,
-                    question.option3,
-                    question.option4,
-                    question.correct_answer,
-                ]
-            );
-            if(rows.length)return rows[0];
-            return null;
+    async updateById(question: Question): Promise<Question  | null> {
+        try {
+            const { rows } = await db.query(
+                'update questions set content=$2,subject_id=$3,option1=$4,option2=$5,option3=$6,option4=$7,correct_answer=$8  where id=$1 RETURNING *',
+                [
+                    question.id,
+                    question.content,
+                    question.subject_id,
+                    question.option1,
+                    question.option2,
+                question.option3,
+                question.option4,
+                question.correct_answer,
+            ]
+        );
+        if(rows.length)return rows[0];
+        return null;
         } catch (err) {
             console.log(err);
             return null;
@@ -84,8 +90,8 @@ class QuestionModel {
             return null;
         }
     }
-    //////Question to test//////
 
+    //////* Question to test *//////
     async addQuestionToTest(test_id:string, question_id: string,score:string='1'): Promise<Question|null> {
         try {
             const { rows } = await db.query(
@@ -110,7 +116,8 @@ class QuestionModel {
             return null;
         }
     }
-    //////Question for student//////
+    
+    //////* Question for student *//////
     async addToStudent(
         student: Student,
         question: Question

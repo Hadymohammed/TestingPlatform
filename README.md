@@ -359,6 +359,8 @@ npm run dev
                     }
                 ]
                 ```
+            * status(422): ``` Wrong data ```
+
         </details>
     - <details>
         <summary>POST : /create</summary>
@@ -390,6 +392,8 @@ npm run dev
                 "correct_answer": "Argantina"
                 }
                 ```
+            * status(422): ``` Wrong data ```
+
         </details>
     - <details>
         <summary>GET : /id</summary>
@@ -415,7 +419,8 @@ npm run dev
                 "correct_answer": "Argantina"
                 }
                 ```
-            * status(500) : ``` invalid id ```
+            * status(422): ``` Wrong data ```    
+
         </details>
     - <details>
         <summary>PATCH : /update</summary>
@@ -448,7 +453,8 @@ npm run dev
                     "correct_answer": "Argantina"
                     }
                 ```
-            * status(500):  ```invalid id```
+            * status(422): ``` Wrong data ```
+            
         </details>
 
 </details>
