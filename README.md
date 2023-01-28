@@ -7,6 +7,7 @@ Testing platform RESTFul API integrated with PostgreSql database for faculty onl
     * [Student](#Student)
     * [Admin](#Admin)
     * [Question](#question)
+    * [Subjects / tags](#subject)
     * [Test](#test)
         - [Test_Questions](#test-questions)
         - [Test_students](#test-to-student)
@@ -239,30 +240,30 @@ npm run dev
             * status(401): ``` Wrong national Id or password ```
         </details>
     - <details>
-    <summary>POST : /</summary>
+        <summary>POST : /</summary>
 
-    * Create new admin
-    * Request body
-        ```json
-        {
-            "name":"Abdelhady Mohamed",
-            "username":"Hady23",//must be unique
-            "national_id":"2323",//must be unique
-            "password":"1111"
-        }
-        ```
-    * Response body
-        * status(200):
+        * Create new admin
+        * Request body
             ```json
             {
-                "id": 1,
-                "name": "Abdelhady Mohamed",
-                "username": "Hady23",
-                "national_id": "2323"
+                "name":"Abdelhady Mohamed",
+                "username":"Hady23",//must be unique
+                "national_id":"2323",//must be unique
+                "password":"1111"
             }
             ```
-        * status(400): ``` reserved keys : key1,key2  ```
-    </details>
+        * Response body
+            * status(200):
+                ```json
+                {
+                    "id": 1,
+                    "name": "Abdelhady Mohamed",
+                    "username": "Hady23",
+                    "national_id": "2323"
+                }
+                ```
+            * status(400): ``` reserved keys : key1,key2  ```
+        </details>
 </details>
 
 #### Subject
@@ -308,7 +309,7 @@ npm run dev
                     "name": "Sport"
                     }
                 ```
-            * status(400): ``` No such Id ```
+            * status(422): ``` Wrong data ```
 
         </details>
     - <details>

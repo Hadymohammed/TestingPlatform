@@ -15,7 +15,7 @@ const index = async (req: Request, res: Response): Promise<void> => {
 const addSubject = async (req: Request, res: Response): Promise<void> => {
     const missing = missingKeys(req, ['name']);
     if (missing.length) {
-        res.status(400).send('Missing attribute : ' + missing);
+        res.status(400).send('Missing data : ' + missing);
         return;
     }
     try {
@@ -25,7 +25,7 @@ const addSubject = async (req: Request, res: Response): Promise<void> => {
         const dbSubject = await subjectEntity.create(subject);
         res.send(dbSubject);
     } catch (err) {
-        res.status(502);
+        res.status(500).send("Internal server error");
     }
 };
 const getById = async (req: Request, res: Response): Promise<void> => {
@@ -33,29 +33,29 @@ const getById = async (req: Request, res: Response): Promise<void> => {
         const id = req.body.id;
         const missing = missingKeys(req, ['id']);
         if (missing.length) {
-            res.status(400).send('Missing attribute : ' + missing);
+            res.status(400).send('Missing data : ' + missing);
             return;
         }
         const subject = await subjectEntity.getById(id);
         if (subject) res.send(subject);
-        else res.status(400).send('No such Id');
+        else res.status(422).send('Wrong data');
     } catch (err) {
-        res.status(502).send(err);
+        res.status(500).send('Internal server error');
     }
 };
 const getByName = async (req: Request, res: Response): Promise<void> => {
     const missing = missingKeys(req, ['name']);
     if (missing.length) {
-        res.status(400).send('Missing attribute : ' + missing);
+        res.status(400).send('Missing data : ' + missing);
         return;
     }
     try {
         const name = req.body.name;
         const subject = await subjectEntity.getByName(name);
         if (subject) res.send(subject);
-        else res.status(400).send('No such name');
+        else res.status(422).send('Wrong data');
     } catch (err) {
-        res.send(502);
+        res.send(500).send("Internal server error");
     }
 };
 
