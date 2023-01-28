@@ -483,6 +483,8 @@ npm run dev
                     }
                     ]
                 ```
+                * status(422): ``` Wrong data ```
+
         </details>
     - <details>
         <summary>GET : /id</summary>
@@ -506,7 +508,8 @@ npm run dev
                     "creator_id": 1
                     }
                 ```
-            - status(400):```invalid id```
+            * status(422): ``` Wrong data ```
+
         </details>
     - <details>
         <summary>POST : /</summary>
@@ -534,7 +537,7 @@ npm run dev
                     "creator_id": 1
                     }
                 ```
-            - status(500):``` Internal Server Error : wrong admin id```
+            * status(422): ``` Wrong data ```
         </details>
     - <details>
         <summary>PATCH : /update</summary>
@@ -563,7 +566,8 @@ npm run dev
                     "creator_id": 1
                     }
                 ```
-            - status(500):``` Internal Server Error : wrong id```
+            * status(422): ``` Wrong data ```
+
         </details>
 </details>
 
@@ -599,7 +603,7 @@ npm run dev
                         }
                         ]
                     ```
-                - status(400):```wrong test_id```
+                * status(422): ``` Wrong data ```
             
             </details>
         - <details>
@@ -624,7 +628,7 @@ npm run dev
                         "score": 1
                         }
                     ```
-                - status(400):```wrong ids```
+                * status(422): ``` Wrong data ```
             
             </details>
         - <details>
@@ -648,7 +652,7 @@ npm run dev
                         "score": 1
                         }
                     ```
-                - status(400):```invalid data```
+                * status(422): ``` Wrong data ```
             
             </details>
 
@@ -681,7 +685,7 @@ npm run dev
                         }
                         ]
                     ```
-                - status(400):```invalid data```
+                * status(422): ``` Wrong data ```
             </details>
         - <details>
             <summary>POST : /</summary>
@@ -703,7 +707,7 @@ npm run dev
                         "student_id": 2
                         }
                     ```
-                - status(400):```invalid data```
+                * status(422): ``` Wrong data ```
             </details>
         - <details>
             <summary>DELETE : /</summary>
@@ -725,6 +729,6 @@ npm run dev
                         "student_id": 1
                         }
                     ```
-                - status(400):```invalid data```
+                * status(422): ``` Wrong data ```
             </details>
     </details>

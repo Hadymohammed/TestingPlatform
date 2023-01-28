@@ -15,10 +15,16 @@ const getStudentsInTest=async (req:Request,res:Response):Promise<void>=>{
         return;
     }
     try{
-        const students:Student[]=await testEntity.getStudents(req.body.test_id);
+        //*check if test exist
+        const test=await testEntity.getById(req.body.test_id);
+        if(test==null){
+            res.status(422).send("Wrong data");
+            return;
+        } 
+        const students=await testEntity.getStudents(req.body.test_id);
         res.send(students);
     }catch(err){
-        res.status(500).send(err);
+        res.status(500).send("Internal server error");
     }
 }
 const addTestToStudent=async (req:Request,res:Response):Promise<void>=>{
@@ -33,7 +39,7 @@ const addTestToStudent=async (req:Request,res:Response):Promise<void>=>{
         const student_id=req.body.student_id;
         const dbTest=await testEntity.addToStudent(test_id,student_id);
         if(dbTest)res.send(dbTest);
-        else res.status(400).send('invalid data');
+        else res.status(422).send('Wrong data');
     }catch(err){
         res.status(500).send(err);
     }
@@ -50,9 +56,9 @@ const removeStudentFromTest=async (req:Request,res:Response):Promise<void>=>{
         const student_id=req.body.student_id;
         const dbTest=await testEntity.deleteFromStudent(test_id,student_id);
         if(dbTest)res.send(dbTest);
-        else res.status(400).send('invalid data');
+        else res.status(422).send('Wrong data');
     }catch(err){
-        res.status(500).send(err);
+        res.status(500).send("Internal server error");
     }
 }
 

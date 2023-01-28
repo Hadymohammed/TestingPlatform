@@ -121,31 +121,31 @@ class QuestionModel {
     async addToStudent(
         student: Student,
         question: Question
-    ): Promise<Question> {
+    ): Promise<Question | null> {
         try {
             const { rows } = await db.query(
                 'INSERT INTO studentQuestion(question_id,student_id) values($1,$2) RETURNING *',
                 [question.id, student.id]
             );
-            return rows[0];
+            if(rows.length)return rows[0];
+            else return null;
         } catch (err) {
-            question.id = 0; //error
-            return question;
+            return null;
         }
     }
     async deleteFromStudent(
         student: Student,
         question: Question
-        ): Promise<Question> {
+        ): Promise<Question | null> {
         try {
             const { rows } = await db.query(
                 'delete from studentQuestion where question_id=$1 and student_id=$2) RETURNING *',
                 [question.id, student.id]
             );
-            return rows[0];
+            if(rows.length) return rows[0];
+            else return null;
         } catch (err) {
-            question.id = 0; //error
-            return question;
+            return null;
         }
     }
 }

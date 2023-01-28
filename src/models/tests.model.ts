@@ -18,18 +18,22 @@ class TestModel {
         return rows;
     }
     async create(Test: Test): Promise<Test | null> {
-        const { rows } = await db.query(
-            'insert into tests (title,total_questions,timer,creator_id,date) values ($1,$2,$3,$4,$5) RETURNING *',
-            [
-                Test.title,
-                Test.total_questions,
-                Test.timer,
-                Test.creator_id,
-                Test.date,
-            ]
-        );
-        if(rows.length)return rows[0];
-        else return null;
+        try{
+            const { rows } = await db.query(
+                'insert into tests (title,total_questions,timer,creator_id,date) values ($1,$2,$3,$4,$5) RETURNING *',
+                [
+                    Test.title,
+                    Test.total_questions,
+                    Test.timer,
+                    Test.creator_id,
+                    Test.date,
+                ]
+            );
+            if(rows.length)return rows[0];
+            else return null;
+        }catch(err){
+            return null;
+        }
     }
     async getById(id: number): Promise<Test | null> {
         const { rows } = await db.query('select * from tests where id=$1', [
@@ -38,7 +42,7 @@ class TestModel {
         if(rows.length)return rows[0];
         else return null;
     }
-    async updateById(Test: Test): Promise<Test|null> {
+    async updateById(Test: Test): Promise<Test | null> {
         try {
             const { rows } = await db.query(
                 'update tests set title=$2,total_questions=$3,timer=$4,date=$5 where id=$1 RETURNING *',
@@ -51,24 +55,27 @@ class TestModel {
                 ]
             );
             if(rows.length)return rows[0];
-            else return null;
+            else {
+                return null;
+            }
         } catch (err) {
             return null;
         }
     }
-    async deleteById(Test: Test): Promise<Test> {
+    async deleteById(Test: Test): Promise<Test | null> {
         try {
             const { rows } = await db.query(
                 'delete from tests where id=$1 RETURNING *',
                 [Test.id]
             );
-            return rows[0];
+            if(rows.length)return rows[0];
+            else return null;
         } catch (err) {
-            Test.id = 0;
-            return Test;
+            return null;
         }
     }
-    ///////Test_For_Student////////
+
+    ////////* Test_For_Student *////////
     async addToStudent(test_id:number, student_id: number): Promise<Test|null> {
         try {
             const { rows } = await db.query(
@@ -100,14 +107,15 @@ class TestModel {
         )
         return rows;
     }
-    /////questions//////
+    //////* questions *//////
     async getQuestions(test_id:string): Promise<Question[]|null> {
         try{
             const {rows}=await db.query(
                 'select questions.content,questions.option1,questions.option2,questions.option3,questions.option4,questions.correct_answer,testquestion.score,testquestion.test_id,testquestion.question_id from testquestion join questions on testQuestion.question_id=questions.id where testQuestion.test_id=$1',
                 [test_id]
             )
-            return rows;
+            if(rows.length)return rows;
+            else return null
         }catch(err){
             return null;
         }
