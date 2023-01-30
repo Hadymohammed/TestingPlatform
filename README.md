@@ -142,34 +142,34 @@ npm run dev
 
         </details>
     - <details>
-    <summary>POST : /</summary>
+        <summary>POST : /</summary>
 
-    * Create new student
-    * Request body : JSON
-        ```json
-        {
-            "name":"Ahmed",
-            "username":"Ahmed",//must be unique
-            "password":"12345678",
-            "national_id":"1212",//must be unique
-            "university_id":"2121"//must be unique
-        }
-        ```
-    * Response body
-        * status(200)
+        * Create new student
+        * Request body : JSON
             ```json
             {
-                "id": 3,
                 "name":"Ahmed",
-                "username":"Ahmed",
+                "username":"Ahmed",//must be unique
                 "password":"12345678",
-                "national_id":"1212",
-                "university_id":"2121"
+                "national_id":"1212",//must be unique
+                "university_id":"2121"//must be unique
             }
             ```
+        * Response body
+            * status(200)
+                ```json
+                {
+                    "id": 3,
+                    "name":"Ahmed",
+                    "username":"Ahmed",
+                    "password":"12345678",
+                    "national_id":"1212",
+                    "university_id":"2121"
+                }
+                ```
 
-        * status(422) : ```reserved keys : key1,key2```
-    </details>
+            * status(422) : ```reserved keys : key1,key2```
+        </details>
 </details>
 
 #### Admin
