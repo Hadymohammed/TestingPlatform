@@ -1,5 +1,5 @@
 CREATE TABLE student_question(
-    id SERIAL primary key,
+    student_question_id SERIAL primary key,
     test_id int NOT NULl,
     question_id int NOT NULL ,
     student_id int NOT NULL,
