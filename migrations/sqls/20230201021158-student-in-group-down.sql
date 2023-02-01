@@ -1,0 +1,1 @@
+DROP TABLE student_in_group;

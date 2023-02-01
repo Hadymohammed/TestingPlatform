@@ -1,0 +1,1 @@
+DROP TABLE question_in_bank;
