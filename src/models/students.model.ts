@@ -2,11 +2,14 @@ import db from '../providers/database.provider';
 
 export interface Student {
     id?: number;
-    name: string;
-    username: string;
     national_id: string;
-    password?: string;
     university_id?: string;
+    arabic_name: string;
+    english_name?: string;
+    username: string;
+    password?: string;
+    phone?: string;
+    faculty_id?: string;
 }
 
 class StudentModel {
@@ -15,24 +18,31 @@ class StudentModel {
         return rows;
     }
     async create(student: Student): Promise<Student | null> {
-        const { rows } = await db.query(
-            'insert into students (name,username,password,national_id,university_id) values ($1,$2,$3,$4,$5) RETURNING *',
-            [
-                student.name,
-                student.username,
-                student.password,
-                student.national_id,
-                student.university_id,
-            ]
-        );
-        if(rows.length){
-            delete rows[0].password;
-            return rows[0];
+        try{
+            const { rows } = await db.query(
+                'insert into students (arabic_name,username,password,national_id,university_id,english_name,phone,faculty_id) values ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
+                [
+                    student.arabic_name,
+                    student.username,
+                    student.password,
+                    student.national_id,
+                    student.university_id,
+                    student.english_name,
+                    student.phone,
+                    student.faculty_id
+                ]
+            );
+            if(rows.length){
+                delete rows[0].password;
+                return rows[0];
+            }
+            else return null;
+        }catch(err){
+            return null;
         }
-        else return null;
     }
     async getById(id: number): Promise<Student | null> {
-        const { rows } = await db.query('select * from students where id=$1', [
+        const { rows } = await db.query('select * from students where student_id=$1', [
             id,
         ]);
         if (rows.length) {

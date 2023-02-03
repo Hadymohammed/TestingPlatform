@@ -86,14 +86,17 @@ const login = async (req: Request, res: Response): Promise<void> => {
 const register = async (req: Request, res: Response): Promise<void> => {
     try {
         const student: Student = {
-            name: req.body.name,
+            arabic_name: req.body.arabic_name,
+            english_name: req.body.english_name,
             national_id: req.body.national_id,
             password: req.body.password,
             university_id: req.body.university_id,
             username: req.body.username,
+            phone: req.body.phone,
+            faculty_id: req.body.faculty_id,
         };
         //params validation
-        const missing=missingKeys(req,["name","national_id","password","username"]);
+        const missing=missingKeys(req,["arabic_name","english_name","national_id","password","username","phone","faculty_id","university_id"]);
         if(missing.length){
             res.status(400).send("Missing parameters : "+missing);
             return;
@@ -112,14 +115,14 @@ const register = async (req: Request, res: Response): Promise<void> => {
         )
             uniqueError.push('university_id');
         if (uniqueError.length) {
-            res.status(422).send('reserved keys : ' + uniqueError);
+            res.status(400).send('reserved keys : ' + uniqueError);
             return;
         }
 
         student.password = hash(student.password as string);
         const dbStudent = await studentEntity.create(student);
         if(dbStudent)res.send(dbStudent);
-        else res.status(500).send("Internal server error");
+        else res.status(422).send("Wrong data");
     } catch (err) {
         res.status(500).send("Internal server error");
     }

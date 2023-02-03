@@ -1,1 +1,1 @@
-DROP TABLE facutly;
+DROP TABLE faculty;

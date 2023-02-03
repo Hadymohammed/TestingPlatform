@@ -7,7 +7,7 @@ CREATE TABLE students(
     username VARCHAR(50) NULL UNIQUE,
     password TEXT NOT NULL,
     phone VARCHAR(15) NULL, 
-    facutly_id int NOT NULL,
+    faculty_id int NOT NULL,
 
-    FOREIGN KEY (facutly_id) REFERENCES facutly(facutly_id)
+    FOREIGN KEY (faculty_id) REFERENCES faculty(faculty_id)
 );

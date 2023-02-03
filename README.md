@@ -58,11 +58,14 @@ npm run dev
                 [
                     {
                     "id": 1,
-                    "name": "Abdelhady",
+                    "arabic_name":"عبدالهادي",
+                    "english_name": "Abdelhady",//may be null
                     "username": "Hady",
                     "password": "$2b$10$UOXLOi5BTu2ROiP.0RXoHOFieJTOe6f6xmDIU47Yij6VHOvrJ/dT6",
                     "national_id": "01234567891234",
-                    "university_id": "2020191071"
+                    "university_id": "2020191071",//may be null
+                    "phone":"01010010",//may be "null"
+                    "faculty_id":1
                     }
                 ]
                 ```
@@ -82,10 +85,13 @@ npm run dev
                 ```json
                 {
                     "id": 1,
-                    "name": "Abdelhady",
+                    "arabic_name":"عبدالهادي",
+                    "english_name": "Abdelhady",//may be null
                     "username": "Hady",
                     "national_id": "01234567891234",
-                    "university_id": "2020191071"
+                    "university_id": "2020191071",//may be null
+                    "phone":"01010010",//may be "null"
+                    "faculty_id":1
                 }
                 ```
             * status(422) : ```Wrong data```
@@ -106,10 +112,13 @@ npm run dev
                 ```json
                 {
                     "id": 1,
-                    "name": "Abdelhady",
+                    "arabic_name":"عبدالهادي",
+                    "english_name": "Abdelhady",//may be null
                     "username": "Hady",
                     "national_id": "01234567891234",
-                    "university_id": "2020191071"
+                    "university_id": "2020191071",//may be null
+                    "phone":"01010010",//may be "null"
+                    "faculty_id":1
                 }
                 ```
             * status(422) : ```Wrong data```
@@ -131,11 +140,14 @@ npm run dev
                 ```json
                 {
                 "id": 1,
-                    "name": "Abdelhady",
+                    "arabic_name":"عبدالهادي",
+                    "english_name": "Abdelhady",//may be null
                     "username": "Hady",
                     "password": "$2b$10$UOXLOi5BTu2ROiP.0RXoHOFieJTOe6f6xmDIU47Yij6VHOvrJ/dT6",
                     "national_id": "01234567891234",
-                    "university_id": "2020191071"
+                    "university_id": "2020191071",//may be null
+                    "phone":"01010010",//may be "null"
+                    "faculty_id":1
                 }
                 ```
             * status(401) : ```Wrong national Id or password```
@@ -148,12 +160,15 @@ npm run dev
         * Request body : JSON
             ```json
             {
-                "name":"Ahmed",
+                "arabic_name":"عبدالهادي",
+                "english_name": "Abdelhady",//may be "null"
                 "username":"Ahmed",//must be unique
                 "password":"12345678",
                 "national_id":"1212",//must be unique
-                "university_id":"2121"//must be unique
-            }
+                "university_id": "2020191071",//may be "null"
+                "phone":"01010010",//may be "null"
+                "faculty_id":1
+                }
             ```
         * Response body
             * status(200)
@@ -168,7 +183,8 @@ npm run dev
                 }
                 ```
 
-            * status(422) : ```reserved keys : key1,key2```
+            * status(400) : ```reserved keys : key1,key2```
+            * status(422) : ```Wrong data```
         </details>
 </details>
 
