@@ -12,14 +12,14 @@ const getAll=async (req:Request,res:Response):Promise<void>=>{
     }
 }
 const addQuestion=async(req:Request,res:Response):Promise<void>=>{
-   const missing=missingKeys(req,['content','subject_id','option1','option2','option3','option4','correct_answer']);
+   const missing=missingKeys(req,['content','language_id','option1','option2','option3','option4','correct_answer']);
    if(missing.length){
         res.status(400).send('Missing data : '+missing);
         return;
    }
    const question:Question={
     content:req.body.content,
-    subject_id:req.body.subject_id,
+    language_id:req.body.language_id,
     option1:req.body.option1,
     option2:req.body.option2,
     option3:req.body.option3,
@@ -52,15 +52,15 @@ const getById =async(req:Request,res:Response):Promise<void>=>{
    }
 }
 const updateQuestion=async (req:Request,res:Response):Promise<void>=>{
-    const missing=missingKeys(req,['id','content','subject_id','option1','option2','option3','option4','correct_answer']);
+    const missing=missingKeys(req,['id','content','language_id','option1','option2','option3','option4','correct_answer']);
     if(missing.length){
         res.status(400).send('Missing data : '+missing);
         return;
    }
    const question:Question={
-    id:req.body.id,
+    question_id:req.body.id,
+    language_id:req.body.language_id,
     content:req.body.content,
-    subject_id:req.body.subject_id,
     option1:req.body.option1,
     option2:req.body.option2,
     option3:req.body.option3,

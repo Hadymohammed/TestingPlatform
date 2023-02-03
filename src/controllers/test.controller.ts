@@ -95,7 +95,8 @@ const addQuestionToTest=async (req:Request,res:Response):Promise<void>=>{
         const test_id=req.body.test_id;
         const question_id=req.body.question_id;
         const score=req.body.score;
-        const dbQuestion=await questionEntity.addQuestionToTest(test_id,question_id,score);
+        const timer=req.body.timer;
+        const dbQuestion=await questionEntity.addQuestionToTest(test_id,question_id,score,timer);
         if(dbQuestion)res.send(dbQuestion);
         else res.status(422).send('Wrong data');
     }catch(err){

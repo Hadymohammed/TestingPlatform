@@ -3,16 +3,17 @@ import { Student } from './students.model';
 import { Tag } from './tags.model';
 import { Test } from './tests.model';
 export interface Question {
-    id?: number;
-    content: string;
+    question_id?: number;
     test_id?: number;
-    score?: number;
-    subject_id: number;
+    language_id:number;
+    content: string;
     option1: string;
     option2: string;
     option3?: string;
     option4?: string;
     correct_answer: string;
+    score?: number;
+    timer?:number;
 }
 
 class QuestionModel {
@@ -23,15 +24,15 @@ class QuestionModel {
     async create(question: Question): Promise<Question | null> {
         try{
             const { rows } = await db.query(
-                'insert into questions (content,subject_id,option1,option2,option3,option4,correct_answer) values ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
+                'insert into questions (content,option1,option2,option3,option4,correct_answer,language_id) values ($1,$2,$3,$4,$5,$6,$7) RETURNING *',
                 [
                     question.content,
-                    question.subject_id,
                     question.option1,
                     question.option2,
                     question.option3,
                     question.option4,
                     question.correct_answer,
+                    question.language_id,
                 ]
             );
             if(rows.length)return rows[0];
@@ -41,34 +42,36 @@ class QuestionModel {
         }
     }
     async getById(id: number): Promise<Question | null> {
-        const { rows } = await db.query('select * from questions where id=$1', [
+        const { rows } = await db.query('select * from questions where question_id=$1', [
             id,
         ]);
         if(rows.length) return rows[0];
         else return null;
     }
     //* Not used
-    async getByTag(tag: Tag): Promise<Question[]> {
+    async getByTag(tag: Tag,question:Question): Promise<Question[]> {
         const { rows } = await db.query(
-            'select * from questions where subject_id=$1',
-            [tag.tag_id]
+            'select * from question_tag where tag_id=$1 and question_id=$2',
+            [tag.tag_id,
+             question.question_id
+            ]
             );
             return rows;
         }
     async updateById(question: Question): Promise<Question  | null> {
         try {
             const { rows } = await db.query(
-                'update questions set content=$2,subject_id=$3,option1=$4,option2=$5,option3=$6,option4=$7,correct_answer=$8  where id=$1 RETURNING *',
+                'update questions set content=$2,language_id=$3,option1=$4,option2=$5,option3=$6,option4=$7,correct_answer=$8  where question_id=$1 RETURNING *',
                 [
-                    question.id,
+                    question.question_id,
                     question.content,
-                    question.subject_id,
+                    question.language_id,
                     question.option1,
                     question.option2,
-                question.option3,
-                question.option4,
-                question.correct_answer,
-            ]
+                    question.option3,
+                    question.option4,
+                    question.correct_answer,
+                ]
         );
         if(rows.length)return rows[0];
         return null;
@@ -80,11 +83,11 @@ class QuestionModel {
     async deleteById(question: Question): Promise<Question |null> {
         try {
             const { rows } = await db.query(
-                'delete from questions where id=$1 RETURNING *',
-                [question.id]
+                'delete from questions where question_id=$1 RETURNING *',
+                [question.question_id]
             );
             if(rows.length)
-            return rows[0];
+                return rows[0];
             else return null
         } catch (err) {
             return null;
@@ -92,11 +95,11 @@ class QuestionModel {
     }
 
     //////* Question to test *//////
-    async addQuestionToTest(test_id:string, question_id: string,score:string='1'): Promise<Question|null> {
+    async addQuestionToTest(test_id:string, question_id: string,score:string='1',timer:number): Promise<Question|null> {
         try {
             const { rows } = await db.query(
-                'insert into testQuestion (test_id,question_id,score) values ($1,$2,$3) RETURNING *',
-                [test_id, question_id, score]
+                'insert into test_question (test_id,question_id,score,timer) values ($1,$2,$3,$4) RETURNING *',
+                [test_id, question_id, score,timer]
             );
             if(rows.length)return rows[0];
             else return null;
@@ -107,7 +110,7 @@ class QuestionModel {
     async deleteQuestionFromTest(test_id:number,question_id:number):Promise<Question | null>{
         try {
             const { rows } = await db.query(
-                'delete from testQuestion where test_id=$1 and question_id=$2 RETURNING *',
+                'delete from test_question where test_id=$1 and question_id=$2 RETURNING *',
                 [test_id, question_id]
             );
             if(rows.length)return rows[0];
@@ -124,8 +127,8 @@ class QuestionModel {
     ): Promise<Question | null> {
         try {
             const { rows } = await db.query(
-                'INSERT INTO studentQuestion(question_id,student_id) values($1,$2) RETURNING *',
-                [question.id, student.id]
+                'INSERT INTO student_question(question_id,student_id,test_id) values($1,$2,$3) RETURNING *',
+                [question.question_id, student.id,question.test_id]
             );
             if(rows.length)return rows[0];
             else return null;
@@ -139,8 +142,8 @@ class QuestionModel {
         ): Promise<Question | null> {
         try {
             const { rows } = await db.query(
-                'delete from studentQuestion where question_id=$1 and student_id=$2) RETURNING *',
-                [question.id, student.id]
+                'delete from student_question where question_id=$1 and student_id=$2 and test_id=$3 RETURNING *',
+                [question.question_id, student.id,question.test_id]
             );
             if(rows.length) return rows[0];
             else return null;

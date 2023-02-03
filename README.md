@@ -388,14 +388,14 @@ npm run dev
                 ```json
                 [
                     {
-                        "id": 1,
+                        "question_id": 1,
                         "content": "Which team won qatar 2022 nationals world cup",
-                        "subject_id": 2,
                         "option1": "Egypt",
                         "option2": "France",
-                        "option3": "Argantina",
-                        "option4": "Brazil",
-                        "correct_answer": "Argantina"
+                        "option3": "Argantina",//may be null
+                        "option4": "Brazil",//may be null
+                        "correct_answer": "Argantina",
+                        "language_id":1,
                     }
                 ]
                 ```
@@ -410,11 +410,11 @@ npm run dev
             ```json
             {
             "content":"Which team won qatar 2022 world cup",
-            "subject_id":"2",
+            "language_id":"2",
             "option1":"Egypt",
             "option2":"France",
-            "option3":"Argantina",
-            "option4":"Brazil",
+            "option3":"Argantina",//may be null
+            "option4":"Brazil",//may be null
             "correct_answer":"Argantina"
             }
             ```
@@ -422,13 +422,13 @@ npm run dev
             * status(200):
                 ```json
                 {
-                "id": 1,
+                "question_id": 1,
                 "content": "Which team won qatar 2022 world cup",
-                "subject_id": 2,
+                "language_id": 2,
                 "option1": "Egypt",
                 "option2": "France",
-                "option3": "Argantina",
-                "option4": "Brazil",
+                "option3": "Argantina",//may be null
+                "option4": "Brazil",//may be null
                 "correct_answer": "Argantina"
                 }
                 ```
@@ -449,13 +449,13 @@ npm run dev
             * status(200):
                 ```json
                 {
-                "id": 1,
+                "question_id": 1,
                 "content": "Which team won qatar 2022 world cup",
-                "subject_id": 2,
+                "language_id": 2,
                 "option1": "Egypt",
                 "option2": "France",
-                "option3": "Argantina",
-                "option4": "Brazil",
+                "option3": "Argantina",//may be null
+                "option4": "Brazil",//may be null
                 "correct_answer": "Argantina"
                 }
                 ```
@@ -471,11 +471,11 @@ npm run dev
                 {
                     "id": 1,
                     "content": "Which team won qatar 2022 nationals world cup",
-                    "subject_id": 2,
+                    "language_id": 2,
                     "option1": "Egypt",
                     "option2": "France",
-                    "option3": "Argantina",
-                    "option4": "Brazil",
+                    "option3": "Argantina",//may be null
+                    "option4": "Brazil",//may be null
                     "correct_answer":"Argantina"
                 }
             ```
@@ -483,9 +483,9 @@ npm run dev
             * status(200): //the entire question after edit
                 ```json
                     {
-                    "id": 1,
+                    "question_id": 1,
                     "content": "Which team won qatar 2022 nationals world cup",
-                    "subject_id": 2,
+                    "language_id": 2,
                     "option1": "Egypt",
                     "option2": "France",
                     "option3": "Argantina",
