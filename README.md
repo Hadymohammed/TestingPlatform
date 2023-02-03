@@ -203,10 +203,14 @@ npm run dev
                 ```json
                 [
                     {
-                        "id": 1,
-                        "name": "Abdelhady Mohamed",
+                        "admin_id": 1,
+                        "type_id": 1,
+                        "national_id": "2323",
+                        "arabic_name": "عبدالهادي محمد",
+                        "english_name": "Abdelhady Mohamed",//may be null
                         "username": "Hady23",
-                        "national_id": "2323"
+                        "phone": "01010",//may be null
+                        "faculty_id": 1
                     }
                 ]
                 ```
@@ -225,10 +229,14 @@ npm run dev
             * status(200) :
                 ```json
                 {
-                    "id": 1,
-                    "name": "Abdelhady Mohamed",
-                    "username": "Hady23",
-                    "national_id": "2323"
+                "admin_id": 1,
+                "type_id": 1,
+                "national_id": "2323",
+                "arabic_name": "عبدالهادي محمد",
+                "english_name": "Abdelhady Mohamed",//may be null
+                "username": "Hady23",
+                "phone": "01010",//may be null
+                "faculty_id": 1//may be null
                 }
                 ```
             * status(422) : ```Wrong data```
@@ -249,8 +257,14 @@ npm run dev
             * status(200):
                 ```json
                 {
-                    "national_id":"2323",
-                    "password":"1111"
+                "admin_id": 1,
+                "type_id": 1,
+                "national_id": "2323",
+                "arabic_name": "عبدالهادي محمد",
+                "english_name": "Abdelhady Mohamed",//may be null
+                "username": "Hady23",
+                "phone": "01010",//may be null
+                "faculty_id": 1
                 }
                 ```
             * status(401): ``` Wrong national Id or password ```
@@ -262,20 +276,28 @@ npm run dev
         * Request body
             ```json
             {
-                "name":"Abdelhady Mohamed",
-                "username":"Hady23",//must be unique
-                "national_id":"2323",//must be unique
-                "password":"1111"
+                "arabic_name":"عبدالهادي محمد",
+                "english_name": "Abdelhady Mohamed",//may be null
+                "username": "Hady23",//must be unique
+                "national_id": "2323",//must be unique
+                "password":"1111",
+                "phone":"01010",//may be null
+                "type_id":1,
+                "faculty_id":1
             }
             ```
         * Response body
             * status(200):
                 ```json
-                {
-                    "id": 1,
-                    "name": "Abdelhady Mohamed",
-                    "username": "Hady23",
-                    "national_id": "2323"
+               {
+                "admin_id":q,
+                "type_id": 1,
+                "national_id": "2323",
+                "arabic_name": "عبدالهادي محمد",
+                "english_name": "Abdelhady Mohamed",//may be null
+                "username": "Hady23",
+                "phone": "01010",//may be null
+                "faculty_id": 1
                 }
                 ```
             * status(400): ``` reserved keys : key1,key2  ```

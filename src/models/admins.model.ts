@@ -2,10 +2,14 @@ import db from '../providers/database.provider';
 
 export interface Admin {
     id?: number;
-    name: string;
+    type_id?:number;
+    arabic_name: string;
+    english_name?: string;
     username: string;
     national_id: string;
     password?: string;
+    phone?:string;
+    faculty_id?:number,
 }
 
 class AdminModel {
@@ -14,12 +18,24 @@ class AdminModel {
         return rows;
     }
     async create(admin: Admin): Promise<Admin | null> {
-        const { rows } = await db.query(
-            'insert into admins (name,username,password,national_id) values ($1,$2,$3,$4) RETURNING *',
-            [admin.name, admin.username, admin.password, admin.national_id]
-        );
-        if (rows.length) return rows[0];
-        else return null;
+        try{
+            const { rows } = await db.query(
+                'insert into admins (arabic_name,username,password,national_id,english_name,phone,faculty_id,type_id) values ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
+                [admin.arabic_name,
+                admin.username, 
+                admin.password, 
+                admin.national_id,
+                admin.english_name,
+                admin.phone,
+                admin.faculty_id,
+                admin.type_id
+                ]
+            );
+            if (rows.length) return rows[0];
+            else return null;
+        }catch(err){
+            return null;
+        }
     }
     async getById(id: number): Promise<Admin | null> {
         const { rows } = await db.query('select * from admins where id=$1', [

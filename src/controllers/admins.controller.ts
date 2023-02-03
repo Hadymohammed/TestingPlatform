@@ -95,13 +95,17 @@ const login = async (req: Request, res: Response): Promise<void> => {
 const register = async (req: Request, res: Response): Promise<void> => {
     try {
         const admin: Admin = {
-            name: req.body.name,
+            type_id:req.body.type_id,
+            arabic_name: req.body.arabic_name,
+            english_name:req.body.english_name,
             national_id: req.body.national_id,
             password: req.body.password,
             username: req.body.username,
+            phone:req.body.phone,
+            faculty_id:req.body.faculty_id
         };
         //params validation
-        const missing=missingKeys(req,["name","username","national_id","password"]);
+        const missing=missingKeys(req,["arabic_name","english_name","username","national_id","password","phone","faculty_id","type_id"]);
         if(missing.length){
             res.status(400).send("Missing parameters : "+missing);
             return;
@@ -113,7 +117,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
         if ((await adminEntity.uniqueNational(admin.national_id)) == false)
             uniqueError.push('national_id');
         if (uniqueError.length) {
-            res.status(422).send('reserved keys : ' + uniqueError);
+            res.status(400).send('reserved keys : ' + uniqueError);
             return;
         }
 
@@ -123,7 +127,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
             delete dbAdmin.password;
             res.send(dbAdmin);
         } else {
-            res.status(500).send('Internal server error');
+            res.status(422).send('Wrong data');
         }
     } catch (err) {
         res.status(500).send("Internal server error");
