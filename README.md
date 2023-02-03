@@ -58,12 +58,12 @@ npm run dev
                 [
                     {
                     "id": 1,
-                    "arabic_name":"عبدالهادي",
-                    "english_name": "Abdelhady",//may be null
-                    "username": "Hady",
+                    "arabic_name":"احمد احمد",
+                    "english_name": "Ahmed",//may be null
+                    "username": "Ahmed",
                     "password": "$2b$10$UOXLOi5BTu2ROiP.0RXoHOFieJTOe6f6xmDIU47Yij6VHOvrJ/dT6",
-                    "national_id": "01234567891234",
-                    "university_id": "2020191071",//may be null
+                    "national_id": "1212",
+                    "university_id": "2121",//may be null
                     "phone":"01010010",//may be "null"
                     "faculty_id":1
                     }
@@ -77,7 +77,7 @@ npm run dev
         * Request body : JSON
             ```json
             {        
-                "national_id":"01234567891234"
+                "national_id":"1212"
             }
             ```
         * Response body 
@@ -85,11 +85,11 @@ npm run dev
                 ```json
                 {
                     "id": 1,
-                    "arabic_name":"عبدالهادي",
-                    "english_name": "Abdelhady",//may be null
-                    "username": "Hady",
-                    "national_id": "01234567891234",
-                    "university_id": "2020191071",//may be null
+                    "arabic_name":"احمد احمد",
+                    "english_name": "Ahmed",//may be null
+                    "username": "Ahmed",
+                    "national_id": "1212",
+                    "university_id": "2121",//may be null
                     "phone":"01010010",//may be "null"
                     "faculty_id":1
                 }
@@ -104,25 +104,24 @@ npm run dev
         * Request body : JSON
             ```json
             {        
-                "id":5
+                "id":1
             }
             ```
         * Response body
             * status(200)
                 ```json
                 {
-                    "id": 1,
-                    "arabic_name":"عبدالهادي",
-                    "english_name": "Abdelhady",//may be null
-                    "username": "Hady",
-                    "national_id": "01234567891234",
-                    "university_id": "2020191071",//may be null
-                    "phone":"01010010",//may be "null"
-                    "faculty_id":1
+                    "student_id": 1,
+                    "national_id": "1212",
+                    "university_id": "2121",
+                    "arabic_name": "احمد احمد",
+                    "english_name": "Ahmed",
+                    "username": "Ahmed",
+                    "phone": "0101010",
+                    "faculty_id": 1
                 }
                 ```
             * status(422) : ```Wrong data```
-
         </details>
     - <details>
         <summary>GET : /login </summary>
@@ -132,22 +131,22 @@ npm run dev
             ```json
             {
                 "password": "12345678",
-                "national_id": "01234567891234"
+                "national_id": "1212"
             }
             ```
         * Response body
             * status(200)
                 ```json
                 {
-                "id": 1,
-                    "arabic_name":"عبدالهادي",
-                    "english_name": "Abdelhady",//may be null
-                    "username": "Hady",
-                    "password": "$2b$10$UOXLOi5BTu2ROiP.0RXoHOFieJTOe6f6xmDIU47Yij6VHOvrJ/dT6",
-                    "national_id": "01234567891234",
-                    "university_id": "2020191071",//may be null
-                    "phone":"01010010",//may be "null"
-                    "faculty_id":1
+                "student_id": 1,
+                "national_id": "1212",
+                "university_id": "2121",
+                "arabic_name": "احمد احمد",
+                "english_name": "Ahmed",
+                "username": "Ahmed",
+                "password": "$2b$10$7a1dsfubQXr1X6wWFjAtnulZlnGC.MX/Wj8Te6h4skGLDdF08OaDC",
+                "phone": "0101010",
+                "faculty_id": 1
                 }
                 ```
             * status(401) : ```Wrong national Id or password```
@@ -160,12 +159,12 @@ npm run dev
         * Request body : JSON
             ```json
             {
-                "arabic_name":"عبدالهادي",
-                "english_name": "Abdelhady",//may be "null"
+                "arabic_name":"احمد احمد",
+                "english_name": "Ahmed",//may be "null"
                 "username":"Ahmed",//must be unique
                 "password":"12345678",
                 "national_id":"1212",//must be unique
-                "university_id": "2020191071",//may be "null"
+                "university_id": "2121",//may be "null"
                 "phone":"01010010",//may be "null"
                 "faculty_id":1
                 }
@@ -174,12 +173,14 @@ npm run dev
             * status(200)
                 ```json
                 {
-                    "id": 3,
-                    "name":"Ahmed",
-                    "username":"Ahmed",
-                    "password":"12345678",
-                    "national_id":"1212",
-                    "university_id":"2121"
+                    "student_id": 1,
+                    "arabic_name":"عبدالهادي",
+                    "english_name": "Abdelhady",//may be "null"
+                    "username":"hady",
+                    "national_id":"1212",//must be unique
+                    "university_id": "2121",//may be "null"
+                    "phone":"01010010",//may be "null"
+                    "faculty_id":1
                 }
                 ```
 
