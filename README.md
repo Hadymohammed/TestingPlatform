@@ -514,12 +514,15 @@ npm run dev
                 ```json
                     [
                     {
-                        "id": 1,
+                        "test_id": 1,
+                        "creator_id": 1,
                         "title": "Software Engineering",
-                        "date": "2023-01-18T22:00:00.000Z",
+                        "date": 1675459489775,//unix timestamp
                         "total_questions": 75,
-                        "timer": 120,
-                        "creator_id": 1
+                        "timer": 120,//may be null
+                        "min_score":30,//may be null
+                        "language_id":1,
+                        "public":false
                     }
                     ]
                 ```
@@ -540,12 +543,16 @@ npm run dev
             - status(200):
                 ```json
                     {
-                    "id": 1,
+                    "test_id": 1,
+                    "creator_id": 1,
                     "title": "Software Engineering",
-                    "date": "2023-01-18T22:00:00.000Z",
+                    "date": 1675459489775,
                     "total_questions": 75,
                     "timer": 120,
-                    "creator_id": 1
+                    "timer": 120,//may be null
+                    "min_score":30,//may be null
+                    "language_id":1,
+                    "public":false
                     }
                 ```
             * status(422): ``` Wrong data ```
@@ -558,23 +565,30 @@ npm run dev
         - Request body
             ```json
                 {
+                "creator_id":1,
                 "title":"Software Engineering",
                 "total_questions":50,
                 "timer":120,
-                "creator_id":1,
-                "date":"2023-01-19"
+                "date":1675459489775,
+                "timer": 120,//may be null
+                "min_score":30,//may be null
+                "language_id":1,
+                "public":false
                 }
             ```
         - Response body
             - status(200):
                 ```json
                     {
-                    "id": 1,
+                    "creator_id": 1,
+                    "test_id": 1,
                     "title": "Software Engineering",
-                    "date": "2023-01-18T22:00:00.000Z",
+                    "date": 1675459489775,
                     "total_questions": 50,
-                    "timer": 120,
-                    "creator_id": 1
+                    "timer": 120,//may be null
+                    "min_score":30,//may be null
+                    "language_id":1,
+                    "public":false
                     }
                 ```
             * status(422): ``` Wrong data ```
@@ -586,24 +600,30 @@ npm run dev
         - Request body
             ```json
                 {
-                "id":1,
+                "question_id":1,
                 "title":"Software Engineering",
                 "total_questions":75,
-                "timer":120,
                 "creator_id":1,
-                "date":"2023-01-19"
+                "date":1675459489775,
+                "timer": 120,//may be null
+                "min_score":30,//may be null
+                "language_id":1,
+                "public":false
                 }
             ```
         - Response body
             - status(200):
                 ```json
                     {
-                    "id": 1,
-                    "title": "Software Engineering",
-                    "date": "2023-01-18T22:00:00.000Z",
-                    "total_questions": 75,
-                    "timer": 120,
-                    "creator_id": 1
+                    "question_id":1,
+                    "title":"Software Engineering",
+                    "total_questions":75,
+                    "creator_id":1,
+                    "date":1675459489775,
+                    "timer": 120,//may be null
+                    "min_score":30,//may be null
+                    "language_id":1,
+                    "public":false
                     }
                 ```
             * status(422): ``` Wrong data ```
@@ -631,15 +651,14 @@ npm run dev
                     ```json
                         [
                         {
+                            "test_id": 1,
+                            "question_id": 1
                             "content": "Which team won qatar 2022 nationals world cup",
                             "option1": "Egypt",
                             "option2": "France",
                             "option3": "Argantina",
                             "option4": "Brazil",
-                            "correct_answer": "Argantina",
                             "score": 1,
-                            "test_id": 1,
-                            "question_id": 1
                         }
                         ]
                     ```
@@ -653,18 +672,21 @@ npm run dev
             - Request body:
                 ```json
                     {
-                    "test_id":1,
-                    "question_id":1,
-                    "score":1
+                    "test_question_id": 4,
+                    "question_id": 2,
+                    "test_id": 1,
+                    "timer": 60,
+                    "score": 1
                     }
                 ```
             - Response body
                 - status(200):
                     ```json
                         {
-                        "id": 1,
+                        "test_question_id": 1,
                         "question_id": 1,
                         "test_id": 1,
+                        "timer": 60,
                         "score": 1
                         }
                     ```
@@ -686,10 +708,11 @@ npm run dev
                 - status(200):
                     ```json
                         {
-                        "id": 1,
+                        "test_question_id": 1,
                         "question_id": 1,
                         "test_id": 1,
-                        "score": 1
+                        "score": 1,
+                        "timer":60
                         }
                     ```
                 * status(422): ``` Wrong data ```
@@ -718,7 +741,8 @@ npm run dev
                     ```json
                         [
                         {
-                            "name": "Abdelhady",
+                            "arabic_name":"عبدالهادي محمد",
+                            "english_name": "Abdelhady",
                             "username": "HadyMohamed",
                             "national_id": "1111",
                             "university_id": "2222"
@@ -764,7 +788,7 @@ npm run dev
                 - status(200):
                     ```json
                         {
-                        "id": 1,
+                        "test_student_id": 1,
                         "test_id": 1,
                         "student_id": 1
                         }

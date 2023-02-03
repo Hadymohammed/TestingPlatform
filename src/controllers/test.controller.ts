@@ -9,7 +9,7 @@ const getAllTests=async (req:Request,res:Response):Promise<void>=>{
     res.send(test);
 }
 const createTest=async (req:Request,res:Response):Promise<void>=>{
-    const missing=missingKeys(req,['title','total_questions','timer','creator_id','date']);
+    const missing=missingKeys(req,['title','total_questions','timer','creator_id','date','min_score','public','language_id']);
     if(missing.length){
         res.status(400).send('Missing data: '+missing);
         return;
@@ -20,7 +20,10 @@ const createTest=async (req:Request,res:Response):Promise<void>=>{
         total_questions:req.body.total_questions,
         timer:req.body.timer,
         creator_id:req.body.creator_id,
-        date:req.body.date
+        date:req.body.date,
+        public:req.body.public,
+        min_score:req.body.min_score,
+        language_id:req.body.language_id
     }
     try{
         const dbTest=await testEntity.create(test);
@@ -45,19 +48,21 @@ const getTestById=async (req:Request,res:Response):Promise<void>=>{
     }
 }
 const updateTest=async (req:Request,res:Response):Promise<void>=>{
-    const missing=missingKeys(req,['id','title','total_questions','timer','creator_id','date']);
+    const missing=missingKeys(req,['title','total_questions','timer','creator_id','date','min_score','public','language_id']);
     if(missing.length){
         res.status(400).send('Missing data: '+missing);
         return;
     }
 
     const test:Test={
-        id:req.body.id,
         title:req.body.title,
         total_questions:req.body.total_questions,
         timer:req.body.timer,
         creator_id:req.body.creator_id,
-        date:req.body.date
+        date:req.body.date,
+        public:req.body.public,
+        min_score:req.body.min_score,
+        language_id:req.body.language_id
     }
     try{
         const dbTest=await testEntity.updateById(test);
@@ -85,7 +90,7 @@ const getQuestionsInTest=async(req:Request,res:Response):Promise<void>=>{
 
 }
 const addQuestionToTest=async (req:Request,res:Response):Promise<void>=>{
-    const missing=missingKeys(req,['test_id','question_id','score']);
+    const missing=missingKeys(req,['test_id','question_id','score','timer']);
     if(missing.length){
         res.status(400).send('missing data : '+missing);
         return;
