@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import SubjectModel, { Subject } from '../models/subjects.model';
+import TagModel, { Tag } from '../models/tags.model';
 import missingKeys from '../services/varifyRequestBody.services';
 
-const subjectEntity = new SubjectModel();
+const tagEntity = new TagModel();
 
 const index = async (req: Request, res: Response): Promise<void> => {
     try {
-        const subjects: Subject[] = await subjectEntity.getAll();
-        res.send(subjects);
+        const tags: Tag[] = await tagEntity.getAll();
+        res.send(tags);
     } catch (err) {
         res.status(500);
     }
@@ -19,11 +19,11 @@ const addSubject = async (req: Request, res: Response): Promise<void> => {
         return;
     }
     try {
-        const subject: Subject = {
+        const tag: Tag = {
             name: req.body.name,
         };
-        const dbSubject = await subjectEntity.create(subject);
-        res.send(dbSubject);
+        const dbTag = await tagEntity.create(tag);
+        res.send(dbTag);
     } catch (err) {
         res.status(500).send("Internal server error");
     }
@@ -36,8 +36,8 @@ const getById = async (req: Request, res: Response): Promise<void> => {
             res.status(400).send('Missing data : ' + missing);
             return;
         }
-        const subject = await subjectEntity.getById(id);
-        if (subject) res.send(subject);
+        const tag = await tagEntity.getById(id);
+        if (tag) res.send(tag);
         else res.status(422).send('Wrong data');
     } catch (err) {
         res.status(500).send('Internal server error');
@@ -51,8 +51,8 @@ const getByName = async (req: Request, res: Response): Promise<void> => {
     }
     try {
         const name = req.body.name;
-        const subject = await subjectEntity.getByName(name);
-        if (subject) res.send(subject);
+        const tag = await tagEntity.getByName(name);
+        if (tag) res.send(tag);
         else res.status(422).send('Wrong data');
     } catch (err) {
         res.send(500).send("Internal server error");

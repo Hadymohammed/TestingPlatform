@@ -7,7 +7,7 @@ Testing platform RESTFul API integrated with PostgreSql database for faculty onl
     * [Student](#Student)
     * [Admin](#Admin)
     * [Question](#question)
-    * [Subjects / tags](#subject)
+    * [Tags](#tags)
     * [Test](#test)
         - [Test_Questions](#test-questions)
         - [Test_students](#test-to-student)
@@ -178,7 +178,7 @@ npm run dev
                     "english_name": "Abdelhady",//may be "null"
                     "username":"hady",
                     "national_id":"1212",//must be unique
-                    "university_id": "2121",//may be "null"
+                    "university_id": "2020191071",//may be "null"
                     "phone":"01010010",//may be "null"
                     "faculty_id":1
                 }
@@ -305,10 +305,10 @@ npm run dev
         </details>
 </details>
 
-#### Subject
+#### Tags
 - future feature , add question tags 
 - <details>
-    <summary>/subject</summary>
+    <summary>/tag</summary>
 
     - <details>
         <summary>GET : /</summary>
@@ -320,11 +320,11 @@ npm run dev
                 ```json
                     [
                         {
-                            "id": 1,
+                            "tag_id": 1,
                             "name": "Math"
                         },
                         {
-                            "id": 2,
+                            "tag_id": 2,
                             "name": "Sport"
                         }
                     ]
@@ -344,7 +344,7 @@ npm run dev
             * status(200):
                 ```json
                     {
-                    "id": 2,
+                    "tag_id": 2,
                     "name": "Sport"
                     }
                 ```
@@ -365,7 +365,7 @@ npm run dev
             * status(200):
                 ```json
                     {
-                    "id": 2,
+                    "tag_id": 2,
                     "name": "Sport"
                     }
                 ```

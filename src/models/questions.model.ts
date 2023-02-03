@@ -1,6 +1,6 @@
 import db from '../providers/database.provider';
 import { Student } from './students.model';
-import { Subject } from './subjects.model';
+import { Tag } from './tags.model';
 import { Test } from './tests.model';
 export interface Question {
     id?: number;
@@ -48,10 +48,10 @@ class QuestionModel {
         else return null;
     }
     //* Not used
-    async getBySubject(subject: Subject): Promise<Question[]> {
+    async getByTag(tag: Tag): Promise<Question[]> {
         const { rows } = await db.query(
             'select * from questions where subject_id=$1',
-            [subject.id]
+            [tag.tag_id]
             );
             return rows;
         }
