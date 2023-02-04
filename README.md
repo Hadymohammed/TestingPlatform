@@ -402,6 +402,7 @@ npm run dev
                         "option4": "Brazil",//may be null
                         "correct_answer": "Argantina",
                         "language_id":1,
+                        "creator_id":1
                     }
                 ]
                 ```
@@ -417,6 +418,7 @@ npm run dev
             {
             "content":"Which team won qatar 2022 world cup",
             "language_id":"2",
+            "creator_id":1,
             "option1":"Egypt",
             "option2":"France",
             "option3":"Argantina",//may be null
@@ -458,6 +460,7 @@ npm run dev
                 "question_id": 1,
                 "content": "Which team won qatar 2022 world cup",
                 "language_id": 2,
+                "creator_id":1,
                 "option1": "Egypt",
                 "option2": "France",
                 "option3": "Argantina",//may be null
@@ -478,6 +481,7 @@ npm run dev
                     "id": 1,
                     "content": "Which team won qatar 2022 nationals world cup",
                     "language_id": 2,
+                    "creator_id":1,
                     "option1": "Egypt",
                     "option2": "France",
                     "option3": "Argantina",//may be null
@@ -492,6 +496,7 @@ npm run dev
                     "question_id": 1,
                     "content": "Which team won qatar 2022 nationals world cup",
                     "language_id": 2,
+                    "creator_id":1,
                     "option1": "Egypt",
                     "option2": "France",
                     "option3": "Argantina",
