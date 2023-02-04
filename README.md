@@ -41,6 +41,36 @@ npm run dev
 ```
 - Open http://127.0.0.1:3000/v0
 ## How to use
+- admin accounts:
+    * Abdelhady Mohamed :
+        ```json
+            {
+                "national_id":"30204452700945",
+                "password":1111
+            }
+        ```
+    * Mohamed Yasser :
+        ```json
+            {
+                "national_id":"30214582700568",
+                "password":"admin"
+            }
+        ```
+    * Sama Mohamed :
+        ```json
+            {
+                "national_id":"30248682700241",
+                "password":"admin"
+            }
+        ```
+- student account:
+    * Sami Ali:
+        ```json
+        {
+            "national_id":"30301452700123",
+            "password":"12345678"
+        }
+        ```
 ### End Points
 #### Student
 - v0 : create ,login and get students using nationalId/Id
