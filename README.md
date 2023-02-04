@@ -65,7 +65,8 @@ npm run dev
                     "national_id": "1212",
                     "university_id": "2121",//may be null
                     "phone":"01010010",//may be "null"
-                    "faculty_id":1
+                    "faculty_id":1,
+                    "grade":"junior"
                     }
                 ]
                 ```
@@ -91,7 +92,8 @@ npm run dev
                     "national_id": "1212",
                     "university_id": "2121",//may be null
                     "phone":"01010010",//may be "null"
-                    "faculty_id":1
+                    "faculty_id":1,
+                    "grade":"junior"
                 }
                 ```
             * status(422) : ```Wrong data```
@@ -118,7 +120,8 @@ npm run dev
                     "english_name": "Ahmed",
                     "username": "Ahmed",
                     "phone": "0101010",
-                    "faculty_id": 1
+                    "faculty_id": 1,
+                    "grade":"junior"
                 }
                 ```
             * status(422) : ```Wrong data```
@@ -146,7 +149,8 @@ npm run dev
                 "username": "Ahmed",
                 "password": "$2b$10$7a1dsfubQXr1X6wWFjAtnulZlnGC.MX/Wj8Te6h4skGLDdF08OaDC",
                 "phone": "0101010",
-                "faculty_id": 1
+                "faculty_id": 1,
+                "grade":"junior"
                 }
                 ```
             * status(401) : ```Wrong national Id or password```
@@ -166,7 +170,8 @@ npm run dev
                 "national_id":"1212",//must be unique
                 "university_id": "2121",//may be "null"
                 "phone":"01010010",//may be "null"
-                "faculty_id":1
+                "faculty_id":1,
+                "grade":"junior"
                 }
             ```
         * Response body
@@ -180,7 +185,8 @@ npm run dev
                     "national_id":"1212",//must be unique
                     "university_id": "2020191071",//may be "null"
                     "phone":"01010010",//may be "null"
-                    "faculty_id":1
+                    "faculty_id":1,
+                    "grade":"junior"
                 }
                 ```
 

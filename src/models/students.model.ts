@@ -10,6 +10,7 @@ export interface Student {
     password?: string;
     phone?: string;
     faculty_id?: string;
+    grade?:string;
 }
 
 class StudentModel {
@@ -20,7 +21,7 @@ class StudentModel {
     async create(student: Student): Promise<Student | null> {
         try{
             const { rows } = await db.query(
-                'insert into students (arabic_name,username,password,national_id,university_id,english_name,phone,faculty_id) values ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
+                'insert into students (arabic_name,username,password,national_id,university_id,english_name,phone,faculty_id,grade) values ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
                 [
                     student.arabic_name,
                     student.username,
@@ -29,7 +30,8 @@ class StudentModel {
                     student.university_id,
                     student.english_name,
                     student.phone,
-                    student.faculty_id
+                    student.faculty_id,
+                    student.grade
                 ]
             );
             if(rows.length){

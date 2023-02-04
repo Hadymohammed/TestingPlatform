@@ -8,6 +8,7 @@ CREATE TABLE students(
     password TEXT NOT NULL,
     phone VARCHAR(15) NULL, 
     faculty_id int NOT NULL,
-
+    grade VARCHAR(20),
+    
     FOREIGN KEY (faculty_id) REFERENCES faculty(faculty_id)
 );

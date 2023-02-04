@@ -94,9 +94,10 @@ const register = async (req: Request, res: Response): Promise<void> => {
             username: req.body.username,
             phone: req.body.phone,
             faculty_id: req.body.faculty_id,
+            grade:req.body.grade
         };
         //params validation
-        const missing=missingKeys(req,["arabic_name","english_name","national_id","password","username","phone","faculty_id","university_id"]);
+        const missing=missingKeys(req,["arabic_name","english_name","national_id","password","username","phone","faculty_id","university_id","grade"]);
         if(missing.length){
             res.status(400).send("Missing parameters : "+missing);
             return;
