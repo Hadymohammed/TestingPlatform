@@ -4,7 +4,7 @@ INSERT INTO faculty(arabic_name,english_name) values ('الحاسبات و ال�
 INSERT INTO admins(type_id,national_id,faculty_id,arabic_name,english_name,username,password,phone)
 values (1,'30204452700945',1,'عبدالهادي محمد','Abdelhady Mohamed','Hady23','$2b$10$UFlSWnZCDQvWrW026IUvdebSr5gN.Br/LfO4AMKeCEQVSNbfxXrha','+201045226688'),/*1111*/
         (1,'30214582700568',1,'محمد ياسر','Mohamed Yasser','MoYasser','$2b$10$sJIbJsctlATmoIe1imUuwOoy6g9yot3OVjcf3yJF2xIq8Z5JzMSz2','+201144558879'),/*admin*/
-        (2,'30248682700241',1,'سمى محمد','Sama Mohamed','SamaMo','$2b$10$sJIbJsctlATmoIe1imUuwOoy6g9yot3OVjcf3yJF2xIq8Z5JzMSz2','+201549814450');/*admin*/
+        (2,'30248682700241',1,'سما محمد','Sama Mohamed','SamaMo','$2b$10$sJIbJsctlATmoIe1imUuwOoy6g9yot3OVjcf3yJF2xIq8Z5JzMSz2','+201549814450');/*admin*/
 /*students*/
 INSERT INTO students(national_id,university_id,faculty_id,arabic_name,english_name,username,password,phone,grade)
 values ('30301452700123','2020191002',1,'سامي علي','Sami Ali','Sami22','$2b$10$q1jbisBT379r5cKQtdZ4BuszBaCx/uHOA.enEqrpFBdnXJNuImK6m','+201548877987','Junior');/*12345678*/
