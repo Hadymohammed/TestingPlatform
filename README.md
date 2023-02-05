@@ -35,10 +35,14 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform TO admin
 GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
 ```
 - Add .env file to the root directory following .env.example format
+- Run db:up script to build database shcema 
+    ```
+    npm run db:up
+    ```
 - Run dev script to start the application
-```
-npm run dev
-```
+    ```
+    npm run dev
+    ```
 - Open http://127.0.0.1:3000/v0
 ## How to use
 - admin accounts:
