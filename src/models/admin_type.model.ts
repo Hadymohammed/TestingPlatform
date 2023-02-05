@@ -17,5 +17,10 @@ class adminTypeModel{
     }
     else return null;
   }
+  async getById (id:number):Promise<AdminType | null>{
+    const {rows}=await db.query('select * from admin_type where admin_type_id=$1',[id]);
+    if(rows.length)return rows[0];
+    else return null;
+   }
 }
 export default adminTypeModel;

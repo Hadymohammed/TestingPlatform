@@ -297,12 +297,14 @@ npm run dev
                 {
                 "admin_id": 1,
                 "type_id": 1,
+                "faculty_id": 1,
                 "national_id": "2323",
                 "arabic_name": "عبدالهادي محمد",
                 "english_name": "Abdelhady Mohamed",//may be null
                 "username": "Hady23",
                 "phone": "01010",//may be null
-                "faculty_id": 1
+                "faculty": "الحاسبات و المعلومات",
+                 "type": "Super"
                 }
                 ```
             * status(401): ``` Wrong national Id or password ```

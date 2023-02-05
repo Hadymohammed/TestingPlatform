@@ -102,7 +102,7 @@ const register = async (req: Request, res: Response): Promise<void> => {
             password: req.body.password,
             username: req.body.username,
             phone:req.body.phone,
-            faculty_id:req.body.faculty_id
+            faculty_id:req.body.faculty_id,
         };
         //params validation
         const missing=missingKeys(req,["arabic_name","english_name","username","national_id","password","phone","faculty_id","type_id"]);

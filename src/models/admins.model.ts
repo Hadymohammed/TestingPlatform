@@ -2,14 +2,16 @@ import db from '../providers/database.provider';
 
 export interface Admin {
     id?: number;
-    type_id?:number;
+    type_id:number;
+    type?:string;
     arabic_name: string;
     english_name?: string;
     username: string;
     national_id: string;
     password?: string;
     phone?:string;
-    faculty_id?:number,
+    faculty_id:number;
+    faculty?:string;
 }
 
 class AdminModel {
