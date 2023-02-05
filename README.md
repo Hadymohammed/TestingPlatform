@@ -180,6 +180,7 @@ npm run dev
                 "password": "$2b$10$7a1dsfubQXr1X6wWFjAtnulZlnGC.MX/Wj8Te6h4skGLDdF08OaDC",
                 "phone": "0101010",
                 "faculty_id": 1,
+                "faculty":"الحاسبات والمعلومات",
                 "grade":"junior"
                 }
                 ```

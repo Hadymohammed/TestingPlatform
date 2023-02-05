@@ -31,4 +31,20 @@ const create=async (req:Request,res:Response):Promise<void>=> {
         res.status(500).send("Internal server error");
     }
 }
-export {getAll,create};
+const getById=async (req:Request,res:Response):Promise<void>=> {
+    const missing=missingKeys(req,["faculty_id"]);
+    if(missing.length){
+        res.status(400).send("Missing parameters : "+missing);
+        return;
+    }
+    const id:number=req.body.faculty_id;
+    try{
+        const faculty:Faculty | null=await facultyEntity.getById(id);
+        if(faculty)res.send(faculty);
+        else res.status(422).send("Wrong data");
+    }catch(err){
+        res.status(500).send("Internal server error");
+    }
+
+}
+export {getAll,create,getById};

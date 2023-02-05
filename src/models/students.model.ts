@@ -9,7 +9,8 @@ export interface Student {
     username: string;
     password?: string;
     phone?: string;
-    faculty_id?: string;
+    faculty_id: number;
+    faculty?:string;
     grade?:string;
 }
 

@@ -2,11 +2,14 @@ import bcrypt from 'bcrypt';
 import StudentModel, { Student } from '../models/students.model';
 import dotenv from 'dotenv';
 import AdminModel, { Admin } from '../models/admins.model';
+import facultyModel, { Faculty } from '../models/faculty.model';
+import db from '../providers/database.provider';
 
 dotenv.config();
 const pepper = process.env.PEPPER;
 
 const studentEntity = new StudentModel();
+const facultyEntity=new facultyModel();
 const adminEntity = new AdminModel();
 const varifyStudent = async (
     national: string,
@@ -18,6 +21,8 @@ const varifyStudent = async (
             dbStudent &&
             bcrypt.compareSync(password + pepper, dbStudent.password as string)
         ) {
+          const faculty:Faculty | null=await facultyEntity.getById(dbStudent.faculty_id);
+           if(faculty)dbStudent.faculty=faculty.arabic_name;
             return dbStudent;
         } else {
             return null;

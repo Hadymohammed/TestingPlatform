@@ -19,5 +19,11 @@ class facultyModel{
             return rows[0];
         else return null;
     }
+   async getById(id:number):Promise<Faculty | null> {
+    const {rows}=await db.query("select * from faculty where faculty_id=$1",[id]);
+    if(rows.length)
+            return rows[0];
+        else return null;
+   }
 }
 export default facultyModel;
