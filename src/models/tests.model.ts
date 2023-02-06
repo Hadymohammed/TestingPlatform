@@ -13,6 +13,7 @@ export interface Test {
     timer?: number;
     min_score?:number;
     public?:boolean;
+    //score?:number;
 }
 
 class TestModel {

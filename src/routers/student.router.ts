@@ -6,6 +6,7 @@ import {
     getByUsername,
     login,
     register,
+    getStudentTests,
 } from '../controllers/students.controllers';
 import logger from '../services/logger.services';
 
@@ -16,6 +17,7 @@ studentRouter.get('/id', getById);
 studentRouter.get('/national', logger, getByNational);
 studentRouter.get('/username', getByUsername);
 studentRouter.get('/login', login);
+studentRouter.get('/test',getStudentTests);
 
 studentRouter.post('/', register);
 

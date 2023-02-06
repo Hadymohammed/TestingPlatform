@@ -5,6 +5,7 @@ Testing platform RESTFul API integrated with PostgreSql database for faculty onl
 - [How to start](#how-to-start)
 - [End Points](#end-points)
     * [Student](#Student)
+        * [Student's_test]
     * [Admin](#Admin)
         * [Admin's_test](#admin-test)
     * [Question](#question)
@@ -231,6 +232,38 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
         </details>
 </details>
 
+- #### Student test
+    - Get students' tests
+    - <details>
+        <summary>/test</summary>
+
+        - <details>
+            <summary>GET : /</summary>
+
+            - Get all tests for a student
+            - Request body:
+                ```json
+                {
+                "student_id":1
+                }
+                ```
+            - Response body:
+                - status(200):
+                    ```json
+                    [
+                    {
+                        "title": "Sports for you",
+                        "test_id": 1,
+                        "date": "1676008800000",
+                        "score": null,
+                        "public": false
+                    }
+                    ]
+                    ```
+                -status(422): ```Wrong data```
+                
+            </details>
+        </details>
 #### Admin
 - v0 : create ,login and get admins using username
 - <details>

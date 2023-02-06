@@ -128,4 +128,23 @@ const register = async (req: Request, res: Response): Promise<void> => {
         res.status(500).send("Internal server error");
     }
 };
-export { index, getById, getByNational, getByUsername, login, register };
+const getStudentTests=async (req:Request,res:Response):Promise<void> => {
+    const missing=missingKeys(req,["student_id"]);
+    if(missing.length){
+        res.status(400).send("Missing parameters : "+missing);
+        return;
+    }
+    const student_id:number=req.body.student_id;
+    try{
+        const student=await studentEntity.getById(student_id);
+        if(student==null){
+            res.status(422).send("Wrong data");
+            return;
+        }
+        const tests=await studentEntity.getAllTest(student_id);
+        res.send(tests);
+    }catch(err){
+        res.status(500).send("Internal server error");
+    }
+}
+export { index, getById, getByNational, getByUsername, login, register,getStudentTests };

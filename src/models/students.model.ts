@@ -1,4 +1,5 @@
 import db from '../providers/database.provider';
+import { Test } from './tests.model';
 
 export interface Student {
     id?: number;
@@ -129,6 +130,11 @@ class StudentModel {
         );
         if (rows.length) return false;
         else return true;
+    }
+    //* Test
+    async getAllTest(student_id:number):Promise<Test[]>{
+        const {rows}= await db.query("select title,tests.test_id,date,score,public from tests join student_test on tests.test_id=student_test.test_id where student_test.student_id=$1",[student_id]);
+        return rows;
     }
 }
 
