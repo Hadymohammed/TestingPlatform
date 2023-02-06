@@ -5,7 +5,7 @@ Testing platform RESTFul API integrated with PostgreSql database for faculty onl
 - [How to start](#how-to-start)
 - [End Points](#end-points)
     * [Student](#Student)
-        * [Student's_test]
+        * [Student's_test](#student-test)
     * [Admin](#Admin)
         * [Admin's_test](#admin-test)
     * [Question](#question)
@@ -261,7 +261,7 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
                     ]
                     ```
                 -status(422): ```Wrong data```
-                
+
             </details>
         </details>
 #### Admin
