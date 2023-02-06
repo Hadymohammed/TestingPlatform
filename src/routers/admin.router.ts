@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+    getAllTests,
     getById,
     getByNational,
     getByUsername,
@@ -15,6 +16,7 @@ adminRouter.get('/id', getById);
 adminRouter.get('/national', getByNational);
 adminRouter.get('/username', getByUsername);
 adminRouter.get('/login', login);
+adminRouter.get('/test',getAllTests);
 
 adminRouter.post('/register', register);
 

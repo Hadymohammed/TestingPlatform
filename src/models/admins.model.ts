@@ -1,4 +1,5 @@
 import db from '../providers/database.provider';
+import { Test } from './tests.model';
 
 export interface Admin {
     id?: number;
@@ -40,7 +41,7 @@ class AdminModel {
         }
     }
     async getById(id: number): Promise<Admin | null> {
-        const { rows } = await db.query('select * from admins where id=$1', [
+        const { rows } = await db.query('select * from admins where admin_id=$1', [
             id,
         ]);
         if (rows.length) return rows[0];
@@ -119,6 +120,12 @@ class AdminModel {
         );
         if (rows.length) return false;
         else return true;
+    }
+    //* Admin tests
+    async getTests(admin_id:number):Promise<Test[]>{
+        const {rows}= await db.query("select * from tests where creator_id=$1 order by date",[admin_id]);
+        console.log(rows);
+        return rows;
     }
 }
 
