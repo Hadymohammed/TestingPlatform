@@ -111,6 +111,7 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
         <summary>GET : /national</summary>
 
         * Get user using national ID
+        * Token requeired as Bearer
         * Request body : JSON
             ```json
             {        
@@ -139,6 +140,7 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
         <summary>GET : /id</summary>
 
         * Get user using ID
+        * Token requeired as Bearer
         * Request body : JSON
             ```json
             {        
@@ -174,7 +176,7 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
             }
             ```
         * Response body
-            * status(200)
+            * status(200): header containts token attribute
                 ```json
                 {
                 "student_id": 1,
@@ -212,7 +214,7 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
                 }
             ```
         * Response body
-            * status(200)
+            * status(200): header containts token attribute
                 ```json
                 {
                     "student_id": 1,

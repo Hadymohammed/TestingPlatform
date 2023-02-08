@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
+const verifyAuthStudentToken = (req: Request, res: Response, next: NextFunction) => {
     const secret = process.env.JWT_SECRET as string;
     try {
         const authorizationHeader = req.headers.authorization as string;
@@ -12,8 +12,7 @@ const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
         jwt.verify(token, secret);
         next();
     } catch (error) {
-        res.status(401);
-        res.json(error);
+        res.status(401).send({error:"token verification faild"});
     }
 };
-export default verifyAuthToken;
+export default verifyAuthStudentToken;

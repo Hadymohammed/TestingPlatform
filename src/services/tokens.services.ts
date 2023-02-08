@@ -1,11 +1,13 @@
-/*import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { User } from '../models/user.model';
+import { Student } from '../models/students.model';
 
 dotenv.config();
-const generateToken = (user: User): string => {
+const generateStudentToken = (student: Student): string => {
     const secret = process.env.JWT_SECRET as string;
-    return jwt.sign({ sub: user.id }, secret);
+    const student_id=student.student_id;
+    console.log(student.student_id);
+    return jwt.sign({student_id},secret);
 };
-export default generateToken;
-*/
+export default generateStudentToken;
+

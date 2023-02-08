@@ -4,6 +4,7 @@ import { defaults } from 'pg';
 import { varifyStudent } from '../services/varifyUser.services';
 import hash from '../services/hash.services';
 import missingKeys from '../services/varifyRequestBody.services';
+import generateStudentToken from '../services/tokens.services';
 
 const studentEntity = new StudentModel();
 
@@ -77,7 +78,8 @@ const login = async (req: Request, res: Response): Promise<void> => {
 
         const student = await varifyStudent(national, password);
         if (student != null) {
-            res.send(student);
+            const token = generateStudentToken(student);
+            res.header({token}).send(student);
         } else res.status(401).send('Wrong national Id or password');
     } catch (err) {
         res.status(500).send("Internal server error");
@@ -122,7 +124,10 @@ const register = async (req: Request, res: Response): Promise<void> => {
 
         student.password = hash(student.password as string);
         const dbStudent = await studentEntity.create(student);
-        if(dbStudent)res.send(dbStudent);
+        if(dbStudent){
+            const token=generateStudentToken(dbStudent);
+            res.header({token}).send(dbStudent);
+        }
         else res.status(422).send("Wrong data");
     } catch (err) {
         res.status(500).send("Internal server error");

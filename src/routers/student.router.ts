@@ -9,15 +9,16 @@ import {
     getStudentTests,
 } from '../controllers/students.controllers';
 import logger from '../services/logger.services';
+import verifyAuthStudentToken from '../utilities/middlewares/authToken.middleware';
 
 const studentRouter = Router();
 
 studentRouter.get('/', index);
-studentRouter.get('/id', getById);
-studentRouter.get('/national', logger, getByNational);
-studentRouter.get('/username', getByUsername);
+studentRouter.get('/id',verifyAuthStudentToken, getById);
+studentRouter.get('/national',verifyAuthStudentToken,getByNational);
+studentRouter.get('/username',verifyAuthStudentToken, getByUsername);
 studentRouter.get('/login', login);
-studentRouter.get('/test',getStudentTests);
+studentRouter.get('/test',verifyAuthStudentToken,getStudentTests);
 
 studentRouter.post('/', register);
 

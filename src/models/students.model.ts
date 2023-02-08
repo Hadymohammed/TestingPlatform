@@ -2,7 +2,7 @@ import db from '../providers/database.provider';
 import { Test } from './tests.model';
 
 export interface Student {
-    id?: number;
+    student_id?: number;
     national_id: string;
     university_id?: string;
     arabic_name: string;
@@ -83,12 +83,12 @@ class StudentModel {
         try {
             const { rows } = await db.query(
                 'update students set name=$2 where id=$1 RETURNING *',
-                [student.id]
+                [student.student_id]
             );
             delete rows[0].password;
             return rows[0];
         } catch (err) {
-            student.id = 0;
+            student.student_id = 0;
             return student;
         }
     }
@@ -103,7 +103,6 @@ class StudentModel {
             delete rows[0].password;
             return rows[0];
         } catch (err) {
-            student.id = 0;
             return student;
         }
     }

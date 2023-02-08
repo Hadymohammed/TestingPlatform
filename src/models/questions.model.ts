@@ -128,7 +128,7 @@ class QuestionModel {
         try {
             const { rows } = await db.query(
                 'INSERT INTO student_question(question_id,student_id,test_id) values($1,$2,$3) RETURNING *',
-                [question.question_id, student.id,question.test_id]
+                [question.question_id, student.student_id,question.test_id]
             );
             if(rows.length)return rows[0];
             else return null;
@@ -143,7 +143,7 @@ class QuestionModel {
         try {
             const { rows } = await db.query(
                 'delete from student_question where question_id=$1 and student_id=$2 and test_id=$3 RETURNING *',
-                [question.question_id, student.id,question.test_id]
+                [question.question_id, student.student_id,question.test_id]
             );
             if(rows.length) return rows[0];
             else return null;
