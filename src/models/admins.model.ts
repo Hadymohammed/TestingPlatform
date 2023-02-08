@@ -2,7 +2,7 @@ import db from '../providers/database.provider';
 import { Test } from './tests.model';
 
 export interface Admin {
-    id?: number;
+    admin_id?: number;
     type_id:number;
     type?:string;
     arabic_name: string;
@@ -69,7 +69,7 @@ class AdminModel {
         try {
             const { rows } = await db.query(
                 'update admins set name=$2 where id=$1 RETURNING *',
-                [admin.id]
+                [admin.admin_id]
             );
             if (rows.length) return rows[0];
             else return null;
@@ -97,7 +97,7 @@ class AdminModel {
         try {
             const { rows } = await db.query(
                 'delete from admins where id=$1 RETURNING *',
-                [admin.id]
+                [admin.admin_id]
             );
             if (rows.length) return rows[0];
             else return null;

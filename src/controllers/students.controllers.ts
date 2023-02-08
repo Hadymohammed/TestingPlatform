@@ -4,7 +4,7 @@ import { defaults } from 'pg';
 import { varifyStudent } from '../services/varifyUser.services';
 import hash from '../services/hash.services';
 import missingKeys from '../services/varifyRequestBody.services';
-import generateStudentToken from '../services/tokens.services';
+import {generateStudentToken} from '../services/tokens.services';
 
 const studentEntity = new StudentModel();
 

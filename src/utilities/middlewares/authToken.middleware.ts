@@ -15,4 +15,29 @@ const verifyAuthStudentToken = (req: Request, res: Response, next: NextFunction)
         res.status(401).send({error:"token verification faild"});
     }
 };
-export default verifyAuthStudentToken;
+
+const verifyAuthSuperAdminToken = (req: Request, res: Response, next: NextFunction) => {
+    const secret = process.env.JWT_SECRET as string;
+    try {
+        const authorizationHeader = req.headers.authorization as string;
+        const token = authorizationHeader.split(' ')[1];
+        jwt.verify(token, secret);
+        const type=jwt.decode(token,{complete:true})?.payload.at('type');
+        if(type!=="Super")throw Error ("token verification faild");
+        next();
+    } catch (error) {
+        res.status(401).send({error:"token verification faild"});
+    }
+};
+const verifyAuthAdminToken = (req: Request, res: Response, next: NextFunction) => {
+    const secret = process.env.JWT_SECRET as string;
+    try {
+        const authorizationHeader = req.headers.authorization as string;
+        const token = authorizationHeader.split(' ')[1];
+        jwt.verify(token, secret);
+        next();
+    } catch (error) {
+        res.status(401).send({error:"token verification faild"});
+    }
+};
+export {verifyAuthStudentToken,verifyAuthSuperAdminToken,verifyAuthAdminToken};

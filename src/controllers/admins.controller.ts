@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { varifyAdmin } from '../services/varifyUser.services';
 import hash from '../services/hash.services';
 import missingKeys from '../services/varifyRequestBody.services';
+import { generateAdminToken } from '../services/tokens.services';
 const adminEntity = new AdminModel();
 
 const index = async (req: Request, res: Response): Promise<void> => {
@@ -86,7 +87,8 @@ const login = async (req: Request, res: Response): Promise<void> => {
         const admin = await varifyAdmin(national, password);
         if (admin) {
             delete admin.password;
-            res.send(admin);
+            const token=generateAdminToken(admin);
+            res.header({token}).send(admin);
         } else res.status(401).send('Wrong national Id or password');
     } catch (err) {
         res.status(500).send("Internal server error");
@@ -125,7 +127,8 @@ const register = async (req: Request, res: Response): Promise<void> => {
         const dbAdmin = await adminEntity.create(admin);
         if (dbAdmin) {
             delete dbAdmin.password;
-            res.send(dbAdmin);
+            const token=generateAdminToken(admin);
+            res.header({token}).send(dbAdmin);
         } else {
             res.status(422).send('Wrong data');
         }

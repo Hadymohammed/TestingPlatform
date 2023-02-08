@@ -9,7 +9,7 @@ import {
     getStudentTests,
 } from '../controllers/students.controllers';
 import logger from '../services/logger.services';
-import verifyAuthStudentToken from '../utilities/middlewares/authToken.middleware';
+import {verifyAuthStudentToken} from '../utilities/middlewares/authToken.middleware';
 
 const studentRouter = Router();
 

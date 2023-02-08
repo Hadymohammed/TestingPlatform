@@ -8,15 +8,16 @@ import {
     login,
     register,
 } from '../controllers/admins.controller';
+import { verifyAuthAdminToken, verifyAuthSuperAdminToken } from '../utilities/middlewares/authToken.middleware';
 
 const adminRouter = Router();
 
 adminRouter.get('/', index);
-adminRouter.get('/id', getById);
-adminRouter.get('/national', getByNational);
-adminRouter.get('/username', getByUsername);
 adminRouter.get('/login', login);
-adminRouter.get('/test',getAllTests);
+adminRouter.get('/id',verifyAuthAdminToken, getById);
+adminRouter.get('/national',verifyAuthAdminToken, getByNational);
+adminRouter.get('/username',verifyAuthAdminToken, getByUsername);
+adminRouter.get('/test',verifyAuthAdminToken,getAllTests);
 
 adminRouter.post('/register', register);
 
