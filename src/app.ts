@@ -9,7 +9,7 @@ const app: Application = express();
 const address = '127.0.0.1:3000';
 
 app.use(bodyParser.json());
-
+app.use(cors());
 app.use(json(), helmet(), morgan('dev'));
 
 app.use('/v0', router);
