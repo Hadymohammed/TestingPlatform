@@ -1,5 +1,5 @@
 {
-  "name": "onlinestoreapi",
+  "name": "testingplatform",
   "version": "1.0.0",
   "description": "Practicing on RESTFUL API &amp; Postgres DB",
   "main": "index.js",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hadymohammed/OnlineStoreAPI.git"
+    "url": "git+https://github.com/Hadymohammed/TestingPlatform.git"
   },
   "author": "Abdelhady Mohamed",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Hadymohammed/OnlineStoreAPI/issues"
+    "url": "https://github.com/Hadymohammed/TestingPlatform/issues"
   },
-  "homepage": "https://github.com/Hadymohammed/OnlineStoreAPI#readme",
+  "homepage": "https://github.com/Hadymohammed/TestingPlatform#readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
