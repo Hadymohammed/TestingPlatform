@@ -164,7 +164,10 @@ const getStudentTestQuestions=async(req:Request,res:Response):Promise<void>=>{
         const student_id:number=req.body.student_id;
         const test_id:number=req.body.test_id;
         const vaildTest=await testEntity.studentHavetest(student_id,test_id);
-        if(!vaildTest)res.status(401).send("Student have no access to this test");
+        if(!vaildTest){
+            res.status(401).send("Student have no access to this test");
+            return;
+        }
 
         const questions=await studentEntity.getTestQuestions(test_id,student_id);
         res.send(questions);

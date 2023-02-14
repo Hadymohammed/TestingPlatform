@@ -137,12 +137,17 @@ class StudentModel {
         return rows;
     }
     async getTestQuestions(test_id:number,student_id:number):Promise<Question[]>{
-        const {rows} = await db.query("select question_id,content,option1,option2,option3,option4,answer,timer,marked from questions join student_question on questions.question_id=student_question.question_id join test_question on test_question.question_id=question.question_id where student_id=$1 and test_id=$2",
-        [
-            student_id,
-            test_id
-        ])
-        return rows;
+        try{
+            const {rows} = await db.query("select questions.question_id,content,option1,option2,option3,option4,answer,marked from questions join student_question on questions.question_id=student_question.question_id where student_id=$1 and test_id=$2",
+            [
+                student_id,
+                test_id
+            ])
+            return rows;
+        }catch(err){
+            console.log(err);
+            return [];
+        }
     }
 }
 

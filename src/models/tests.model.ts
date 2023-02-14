@@ -118,12 +118,12 @@ class TestModel {
         return rows;
     }
     async studentHavetest(student_id:number,test_id:number):Promise<Boolean>{
-        const {rows}=await db.query("select count(*) as number from tests where test_id=$1 and student_id=$2",
+        const {rows}=await db.query("select count(*) as number from student_test where test_id=$1 and student_id=$2",
         [
             test_id,
             student_id
         ])
-        return rows[0].number>=1;
+        return (rows[0].number as number) >=1;
     }
     //////* questions *//////
     async getQuestions(test_id:string): Promise<Question[]|null> {

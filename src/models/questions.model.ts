@@ -11,7 +11,7 @@ export interface Question {
     option2: string;
     option3?: string;
     option4?: string;
-    correct_answer: string;
+    correct_answer?: string;
     score?: number;
     timer?:number;
     marked?:boolean;
