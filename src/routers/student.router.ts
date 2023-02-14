@@ -7,6 +7,7 @@ import {
     login,
     register,
     getStudentTests,
+    getStudentTestQuestions,
 } from '../controllers/students.controllers';
 import logger from '../services/logger.services';
 import {verifyAuthStudentToken} from '../utilities/middlewares/authToken.middleware';
@@ -19,6 +20,7 @@ studentRouter.get('/national',verifyAuthStudentToken,getByNational);
 studentRouter.get('/username',verifyAuthStudentToken, getByUsername);
 studentRouter.get('/login', login);
 studentRouter.get('/test',verifyAuthStudentToken,getStudentTests);
+studentRouter.get('/test/question',verifyAuthStudentToken,getStudentTestQuestions);
 
 studentRouter.post('/', register);
 

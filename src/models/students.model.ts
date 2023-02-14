@@ -1,4 +1,5 @@
 import db from '../providers/database.provider';
+import { Question } from './questions.model';
 import { Test } from './tests.model';
 
 export interface Student {
@@ -133,6 +134,14 @@ class StudentModel {
     //* Test
     async getAllTest(student_id:number):Promise<Test[]>{
         const {rows}= await db.query("select title,tests.test_id,date,score,public from tests join student_test on tests.test_id=student_test.test_id where student_test.student_id=$1",[student_id]);
+        return rows;
+    }
+    async getTestQuestions(test_id:number,student_id:number):Promise<Question[]>{
+        const {rows} = await db.query("select question_id,content,option1,option2,option3,option4,answer,timer,marked from questions join student_question on questions.question_id=student_question.question_id join test_question on test_question.question_id=question.question_id where student_id=$1 and test_id=$2",
+        [
+            student_id,
+            test_id
+        ])
         return rows;
     }
 }

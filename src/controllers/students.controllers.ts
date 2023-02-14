@@ -5,8 +5,10 @@ import { varifyStudent } from '../services/varifyUser.services';
 import hash from '../services/hash.services';
 import missingKeys from '../services/varifyRequestBody.services';
 import {generateStudentToken} from '../services/tokens.services';
+import TestModel from '../models/tests.model';
 
 const studentEntity = new StudentModel();
+const testEntity=new TestModel();
 
 const index = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -152,4 +154,29 @@ const getStudentTests=async (req:Request,res:Response):Promise<void> => {
         res.status(500).send("Internal server error");
     }
 }
-export { index, getById, getByNational, getByUsername, login, register,getStudentTests };
+const getStudentTestQuestions=async(req:Request,res:Response):Promise<void>=>{
+    const missing=missingKeys(req,["student_id","test_id"]);
+    if(missing.length){
+        res.status(400).send("Missing parameters : "+missing);
+        return;
+    }
+    try{
+        const student_id:number=req.body.student_id;
+        const test_id:number=req.body.test_id;
+        const vaildTest=await testEntity.studentHavetest(student_id,test_id);
+        if(!vaildTest)res.status(401).send("Student have no access to this test");
+
+        const questions=await studentEntity.getTestQuestions(test_id,student_id);
+        res.send(questions);
+    }catch(err){
+        res.status(500).send("Internal server error");
+    }
+}
+export { index, 
+        getById, 
+        getByNational, 
+        getByUsername, 
+        login, 
+        register,
+        getStudentTests, 
+        getStudentTestQuestions};

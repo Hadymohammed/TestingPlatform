@@ -14,6 +14,8 @@ export interface Question {
     correct_answer: string;
     score?: number;
     timer?:number;
+    marked?:boolean;
+    answer?:string;
 }
 
 class QuestionModel {
