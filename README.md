@@ -6,6 +6,7 @@ Testing platform RESTFul API integrated with PostgreSql database for faculty onl
 - [End Points](#end-points)
     * [Student](#Student)
         * [Student's_test](#student-test)
+        * [Student_Questions](#student-questions)
     * [Admin](#Admin)
         * [Admin's_test](#admin-test)
     * [Question](#question)
@@ -265,6 +266,43 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
                 -status(422): ```Wrong data```
 
             </details>
+        </details>
+- #### Student Questions
+    - Get , Solve questions in tests
+    - <details>
+        <summary>/question</summary>
+        
+        - <details>
+            <summary>GET : /</summary>
+
+            - get all questions assigned to student in test
+            - Token required
+            - Request body:
+                ```json
+                {
+                    "student_id":1,
+                    "test_id":1
+                }
+                ```
+            - Response:
+                * status(200):
+                    ```json
+                    [
+                    {
+                        "question_id": 1,
+                        "content": "Which team won the first FIFA Womens World Cup?",
+                        "option1": "United States",
+                        "option2": "Sweden",
+                        "option3": "Norway",
+                        "option4": "Brazil",
+                        "answer": null,
+                        "marked": false
+                    }
+                    ]
+                    ```
+                * status(401) : ```Student have no access to this test```
+        </details>
+        </summary>
         </details>
 #### Admin
 - v0 : create ,login and get admins using username
