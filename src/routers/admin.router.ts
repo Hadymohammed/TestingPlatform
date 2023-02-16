@@ -13,12 +13,12 @@ import { verifyAuthAdminToken, verifyAuthSuperAdminToken } from '../utilities/mi
 const adminRouter = Router();
 
 adminRouter.get('/', index);
-adminRouter.get('/login', login);
 adminRouter.get('/id',verifyAuthAdminToken, getById);
 adminRouter.get('/national',verifyAuthAdminToken, getByNational);
 adminRouter.get('/username',verifyAuthAdminToken, getByUsername);
 adminRouter.get('/test',verifyAuthAdminToken,getAllTests);
 
+adminRouter.post('/login', login);
 adminRouter.post('/register', register);
 
 export default adminRouter;

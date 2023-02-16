@@ -166,7 +166,7 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
             * status(422) : ```Wrong data```
         </details>
     - <details>
-        <summary>GET : /login </summary>
+        <summary>POST : /login </summary>
 
         * Student login
         * Request body : JSON
@@ -360,7 +360,7 @@ GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
 
         </details>
     - <details>
-        <summary>GET : /login</summary>
+        <summary>POST : /login</summary>
 
         * Login to admin account
         * Request body:

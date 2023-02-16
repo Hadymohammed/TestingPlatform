@@ -18,10 +18,10 @@ studentRouter.get('/', index);
 studentRouter.get('/id',verifyAuthStudentToken, getById);
 studentRouter.get('/national',verifyAuthStudentToken,getByNational);
 studentRouter.get('/username',verifyAuthStudentToken, getByUsername);
-studentRouter.get('/login', login);
 studentRouter.get('/test',verifyAuthStudentToken,getStudentTests);
 studentRouter.get('/test/question',verifyAuthStudentToken,getStudentTestQuestions);
 
+studentRouter.post('/login', login);
 studentRouter.post('/', register);
 
 export default studentRouter;
