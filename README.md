@@ -33,9 +33,9 @@ CREATE USER Admin WITH PASSWORD '12345678';
 CREATE DATABASE TestingPlatform;
 CREATE DATABASE TestingPlatform_test;
 \c TestingPlatform
-GRANT ALL PRIVILEGES ON DATABASE TestingPlatform TO admin
+GRANT ALL PRIVILEGES ON DATABASE testingplatform TO admin
 \c TestingPlatform_test
-GRANT ALL PRIVILEGES ON DATABASE TestingPlatform_test TO admin;
+GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
 ```
 - Add .env file to the root directory following .env.example format
 - Run db:up script to build database shcema 
