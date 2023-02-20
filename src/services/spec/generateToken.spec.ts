@@ -1,6 +1,6 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Admin } from "../../models/admins.model"
-import { generateAdminToken, generateStudentToken } from "../../services/tokens.services"
+import { generateAdminToken, generateStudentToken } from "../tokens.services"
 import dotenv from 'dotenv';
 import { Student } from '../../models/students.model';
 dotenv.config();
