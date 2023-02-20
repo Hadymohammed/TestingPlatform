@@ -12,7 +12,7 @@
     "build": "npx tsc",
     "db:up": "npx db-migrate up",
     "db:down": "npx db-migrate reset",
-    "test": "npm run build && set ENV=test&& db-migrate --env test up &&  npx jasmine && db-migrate --env test reset"
+    "test": "npm run build && set ENV=test&& db-migrate --env test up &&  npx jasmine && db-migrate --env test reset && del-cli --force ./dist"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "@types/mock-req-res": "^1.1.3",
     "@types/morgan": "^1.9.3",
     "@types/pg": "^8.6.5",
+    "@types/sinon": "^10.0.13",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
@@ -43,6 +44,7 @@
     "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-promise": "^6.1.0",
     "jasmine": "^4.4.0",
+    "jasmine-object-matchers": "^0.1.0",
     "jasmine-spec-reporter": "^7.0.0",
     "mock-req-res": "^1.2.1",
     "nodemon": "^2.0.20",
@@ -51,7 +53,6 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@types/sinon": "^10.0.13",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "db-migrate": "^0.11.13",
