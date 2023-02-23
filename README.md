@@ -389,7 +389,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
             * status(401): ``` Wrong national Id or password ```
         </details>
     - <details>
-        <summary>POST : /</summary>
+        <summary>POST : /register</summary>
 
         * Create new admin
         * Request body
