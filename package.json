@@ -12,7 +12,8 @@
     "build": "npx tsc",
     "db:up": "npx db-migrate up",
     "db:down": "npx db-migrate reset",
-    "test": "npm run build && set ENV=test&& db-migrate --env test up &&  npx jasmine && db-migrate --env test reset && del-cli --force ./dist"
+    "test": "npm run build && set ENV=test&& db-migrate --env test up &&  npx jasmine && db-migrate --env test reset && del-cli --force ./dist",
+    "reset-test":" set ENV=test && db-migrate --env test reset && del-cli --force ./dist"
   },
   "repository": {
     "type": "git",
