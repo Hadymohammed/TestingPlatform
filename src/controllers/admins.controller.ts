@@ -76,7 +76,6 @@ const login = async (req: Request, res: Response): Promise<void> => {
     try {
         const national = req.body.national_id;
         const password = req.body.password;
-
         /*param validation*/
         const missing=missingKeys(req,["national_id","password"]);
         if(missing.length){
