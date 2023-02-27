@@ -8,8 +8,8 @@ import {
     register,
     getStudentTests,
     getStudentTestQuestions,
+    getStudentProfile,
 } from '../controllers/students.controllers';
-import logger from '../services/logger.services';
 import {verifyAuthStudentToken} from '../utilities/middlewares/authToken.middleware';
 
 const studentRouter = Router();
@@ -20,6 +20,7 @@ studentRouter.get('/national',verifyAuthStudentToken,getByNational);
 studentRouter.get('/username',verifyAuthStudentToken, getByUsername);
 studentRouter.get('/test',verifyAuthStudentToken,getStudentTests);
 studentRouter.get('/test/question',verifyAuthStudentToken,getStudentTestQuestions);
+studentRouter.get('/profile',verifyAuthStudentToken,getStudentProfile);
 
 studentRouter.post('/login', login);
 studentRouter.post('/', register);
