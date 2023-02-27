@@ -7,8 +7,7 @@ dotenv.config();
 const verifyAuthStudentToken = (req: Request, res: Response, next: NextFunction) => {
     const secret = process.env.JWT_SECRET as string;
     try {
-        const authorizationHeader = req.headers.authorization as string;
-        const token = authorizationHeader.split(' ')[1];
+        const token = req.cookies.token;
         jwt.verify(token, secret);
         next();
     } catch (error) {
@@ -19,8 +18,7 @@ const verifyAuthStudentToken = (req: Request, res: Response, next: NextFunction)
 const verifyAuthSuperAdminToken = (req: Request, res: Response, next: NextFunction) => {
     const secret = process.env.JWT_SECRET as string;
     try {
-        const authorizationHeader = req.headers.authorization as string;
-        const token = authorizationHeader.split(' ')[1];
+        const token =req.cookies.token;
         jwt.verify(token, secret);
         const type=jwt.decode(token,{complete:true})?.payload.at('type');
         if(type!=="Super")throw Error ("token verification faild");
@@ -32,8 +30,7 @@ const verifyAuthSuperAdminToken = (req: Request, res: Response, next: NextFuncti
 const verifyAuthAdminToken = (req: Request, res: Response, next: NextFunction) => {
     const secret = process.env.JWT_SECRET as string;
     try {
-        const authorizationHeader = req.headers.authorization as string;
-        const token = authorizationHeader.split(' ')[1];
+        const token = req.cookies.token;
         jwt.verify(token, secret);
         next();
     } catch (error) {
