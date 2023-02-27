@@ -124,7 +124,14 @@ class AdminModel {
     //* Admin tests
     async getTests(admin_id:number):Promise<Test[]>{
         const {rows}= await db.query("select * from tests where creator_id=$1 order by date",[admin_id]);
-        console.log(rows);
+        return rows;
+    }
+    async getPastTests(admin_id:number):Promise<Test[]>{
+        const {rows}= await db.query("select * from tests where creator_id=$1 and date <=  extract(epoch from now()) order by date",[admin_id]);
+        return rows;
+    }
+    async getCommingTests(admin_id:number):Promise<Test[]>{
+        const {rows}= await db.query("select * from tests where creator_id=$1 and date >  extract(epoch from now()) order by date",[admin_id]);
         return rows;
     }
 }
