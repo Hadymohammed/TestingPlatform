@@ -1,11 +1,12 @@
 import StudentModel, { Student } from '../models/students.model';
 import { Response, Request } from 'express';
-import { defaults } from 'pg';
+import jwt_decode from 'jwt-decode';
 import { varifyStudent } from '../services/varifyUser.services';
 import hash from '../services/hash.services';
 import missingKeys from '../services/varifyRequestBody.services';
-import {generateStudentToken} from '../services/tokens.services';
+import {generateStudentToken, StudentToken} from '../services/tokens.services';
 import TestModel from '../models/tests.model';
+import facultyModel from '../models/faculty.model';
 
 const studentEntity = new StudentModel();
 const testEntity=new TestModel();
@@ -81,7 +82,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
         const student = await varifyStudent(national, password);
         if (student != null) {
             const token = generateStudentToken(student);
-            res.header({token}).send(student);
+            res.cookie('token',token, { maxAge: 900000, httpOnly: true }).send(student);
         } else res.status(401).send('Wrong national Id or password');
     } catch (err) {
         res.status(500).send("Internal server error");
@@ -128,13 +129,50 @@ const register = async (req: Request, res: Response): Promise<void> => {
         const dbStudent = await studentEntity.create(student);
         if(dbStudent){
             const token=generateStudentToken(dbStudent);
-            res.header({token}).send(dbStudent);
+            res.cookie('token',token, { maxAge: 900000, httpOnly: true }).send(dbStudent);
         }
         else res.status(422).send("Wrong data");
     } catch (err) {
         res.status(500).send("Internal server error");
     }
 };
+
+const getStudentProfile =async(req: Request, res: Response): Promise<void> => {
+    const facultyEntity=new facultyModel();
+    try{
+        const token=req.cookies.token;
+        const {student_id}=jwt_decode<StudentToken>(token,{header:false});
+        const student=await studentEntity.getById(student_id);
+            if(!student){
+                res.status(400).send({err:"No student matches the given information"})
+                return
+            }
+            const faculty=await facultyEntity.getById(student.faculty_id);
+            if(!faculty){
+                res.status(400).send({err:"No faculty matches the given information"})
+                return
+            }
+            student.faculty=faculty.arabic_name;
+            //const student_tests=await studentEntity.getAllTest(student_id);
+            const pastTests=await studentEntity.getPastTests(student_id);
+            const commingTests=await studentEntity.getCommingTests(student_id);
+            res.send({
+                student_id:student?.student_id,
+                national_id:student.national_id,
+                university_id:student.university_id,
+                level:student.grade,
+                phone:student.phone,
+                arabic_name:student?.arabic_name,
+                english_name:student?.english_name,
+                faculty:student?.faculty,
+                pastTests:pastTests,
+                commingTests:commingTests
+            })
+        }catch(err){
+            res.status(500).send("Internal server error ");
+        }
+       
+}
 const getStudentTests=async (req:Request,res:Response):Promise<void> => {
     const missing=missingKeys(req,["student_id"]);
     if(missing.length){
@@ -181,5 +219,6 @@ export { index,
         getByUsername, 
         login, 
         register,
+        getStudentProfile,
         getStudentTests, 
         getStudentTestQuestions};
