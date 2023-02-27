@@ -1,4 +1,5 @@
 import supertest, { Request, Response } from "supertest";
+import {Headers} from 'node-fetch'
 import request from 'superagent';
 import app from "../../app";
 import haveProperities from "../../utilities/objectBodyHaveProps.utility";
@@ -101,8 +102,10 @@ describe('Admin route suit',()=>{
             const expectedKeys=["admin_id","type_id","national_id","arabic_name","english_name","username","phone","faculty_id","faculty"];
             expect(haveProperities(resAdmin,expectedKeys)).toEqual(true);
         })
-        it("Should response geader contains token",()=>{
-            expect(res.header.token).toBeDefined();
+        it("Should response header contains token",()=>{
+            const Header=new Headers(res.headers);
+            console.log(Header.get('set-cookie'));
+            expect(Header.get('set-cookie')).toBeDefined();
         })
         /*
         * unauthrized login  
