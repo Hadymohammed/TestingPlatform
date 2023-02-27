@@ -4,6 +4,7 @@ import {
     getById,
     getByNational,
     getByUsername,
+    getAdminProfile,
     index,
     login,
     register,
@@ -17,6 +18,8 @@ adminRouter.get('/id',verifyAuthAdminToken, getById);
 adminRouter.get('/national',verifyAuthAdminToken, getByNational);
 adminRouter.get('/username',verifyAuthAdminToken, getByUsername);
 adminRouter.get('/test',verifyAuthAdminToken,getAllTests);
+
+adminRouter.get('/profile',verifyAuthAdminToken,getAdminProfile);
 
 adminRouter.post('/login', login);
 adminRouter.post('/register', register);
