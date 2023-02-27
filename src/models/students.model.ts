@@ -136,6 +136,14 @@ class StudentModel {
         const {rows}= await db.query("select title,tests.test_id,date,score,public from tests join student_test on tests.test_id=student_test.test_id where student_test.student_id=$1",[student_id]);
         return rows;
     }
+    async getPastTests(student_id:number):Promise<Test[]>{
+        const {rows}= await db.query("select title,tests.test_id,date,score,public from tests join student_test on tests.test_id=student_test.test_id where student_test.student_id=$1 and date <=  extract(epoch from now()) order by date",[student_id]);
+        return rows;
+    }
+    async getCommingTests(student_id:number):Promise<Test[]>{
+        const {rows}= await db.query("select title,tests.test_id,date,score,public from tests join student_test on tests.test_id=student_test.test_id where student_test.student_id=$1 and date >  extract(epoch from now()) order by date",[student_id]);
+        return rows;
+    }
     async getTestQuestions(test_id:number,student_id:number):Promise<Question[]>{
         try{
             const {rows} = await db.query("select questions.question_id,content,option1,option2,option3,option4,answer,marked from questions join student_question on questions.question_id=student_question.question_id where student_id=$1 and test_id=$2",
