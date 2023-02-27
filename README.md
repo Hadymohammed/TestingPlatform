@@ -112,7 +112,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
         <summary>GET : /national</summary>
 
         * Get user using national ID
-        * Token required as Bearer
+        * Token cookie required
         * Request body : JSON
             ```json
             {        
@@ -141,7 +141,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
         <summary>GET : /id</summary>
 
         * Get user using ID
-        * Token required as Bearer
+        * Token cookie required
         * Request body : JSON
             ```json
             {        
@@ -177,7 +177,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
             }
             ```
         * Response body
-            * status(200): header containts token attribute
+            * status(200): header.cookie containts token
                 ```json
                 {
                 "student_id": 1,
@@ -215,7 +215,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
                 }
             ```
         * Response body
-            * status(200): header containts token attribute
+            * status(200): header.cookie containts token
                 ```json
                 {
                     "student_id": 1,
@@ -276,7 +276,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
             <summary>GET : /</summary>
 
             - get all questions assigned to student in test
-            - Token required
+            - Token cookie required
             - Request body:
                 ```json
                 {
@@ -335,7 +335,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
         <summary>GET : /username</summary>
 
         * Get admin by username
-        * Token required as Bearer
+        * Token cookie required
         * Request body:
             ```json
             {
@@ -371,7 +371,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
             }
             ```
         * Response body
-            * status(200): header containts token attribute
+            * status(200): header.cookie containts token
                 ```json
                 {
                 "admin_id": 1,
@@ -406,7 +406,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
             }
             ```
         * Response body
-            * status(200): header containts token attribute
+            * status(200): header.cookie containts token
                 ```json
                {
                 "admin_id":q,
@@ -432,7 +432,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
             <summary>GET : /</summary>
             
             - Get all tests created by an admin
-            - Token required as Bearer
+            - Token cookie required
             - Request body : 
                 ```json
                 {
