@@ -197,7 +197,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
 
         </details>
     - <details>
-        <summary>POST : /</summary>
+        <summary>POST : /register</summary>
 
         * Create new student
         * Request body : JSON
@@ -232,6 +232,42 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
 
             * status(400) : ```reserved keys : key1,key2```
             * status(422) : ```Wrong data```
+        </details>
+   - <details>
+        <summary>GET : /profile</summary>
+
+        * get all profile data
+        * Token cookie required
+        * No Request body required
+        * Response body
+            * status(200):
+                ```json
+                {
+                   "student_id": 1,
+                   "national_id": "30301452700123",
+                   "university_id": "2020191002",
+                   "level": "Junior",
+                   "phone": "+201548877987",
+                   "arabic_name": "سامي علي",
+                   "english_name": "Sami Ali",
+                   "faculty": "الحاسبات و المعلومات",
+                   "pastTests": [],
+                   "commingTests": [
+                       {
+                           "title": "Sports for you",
+                           "test_id": 1,
+                           "date": "1676008800000",
+                           "score": null,
+                           "public": false
+                       }
+                   ]
+                 }
+                ```
+
+            * status(400) : cookie token payload are wrong
+                           ```json
+                           {"error":"no match"}
+                           ```
         </details>
 </details>
 
@@ -420,6 +456,55 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
                 }
                 ```
             * status(400): ``` reserved keys : key1,key2  ```
+        </details>
+   
+   - <details>
+        <summary>GET : /profile</summary>
+
+        * get all profile data
+        * Token cookie required
+        * No Request body required
+        * Response body
+            * status(200):
+                ```json
+                {
+                      "admin_id": 1,
+                      "arabic_name": "عبدالهادي محمد",
+                      "english_name": "Abdelhady Mohamed",
+                      "faculty": "الحاسبات و المعلومات",
+                      "type": "Super",
+                      "pastTests": [],
+                      "commingTests": [
+                          {
+                              "test_id": 1,
+                              "title": "Sports for you",
+                              "date": "1676008800000",
+                              "min_score": 1,
+                              "total_questions": 2,
+                              "timer": 5,
+                              "creator_id": 1,
+                              "language_id": 1,
+                              "public": false
+                          },
+                          {
+                              "test_id": 2,
+                              "title": "مصر",
+                              "date": "1676008800000",
+                              "min_score": 2,
+                              "total_questions": 5,
+                              "timer": 60,
+                              "creator_id": 1,
+                              "language_id": 1,
+                              "public": false
+                          }
+                      ]
+                  }
+                ```
+
+            * status(400) : cookie token payload are wrong
+                           ```json
+                           {"error":"no match"}
+                           ```
         </details>
 </details>
 
