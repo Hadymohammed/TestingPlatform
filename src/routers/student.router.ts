@@ -23,6 +23,6 @@ studentRouter.get('/test/question',verifyAuthStudentToken,getStudentTestQuestion
 studentRouter.get('/profile',verifyAuthStudentToken,getStudentProfile);
 
 studentRouter.post('/login', login);
-studentRouter.post('/', register);
+studentRouter.post('/register', register);
 
 export default studentRouter;
