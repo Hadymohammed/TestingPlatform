@@ -619,7 +619,7 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
     <summary>/question</summary>
 
     - <details>
-        <summmary>GET : / </summary>
+        <summary>GET : /</summary>
 
         * Get all questions
         * No request body required
@@ -741,7 +741,6 @@ GRANT ALL PRIVILEGES ON DATABASE testingplatform_test TO admin;
             * status(422): ``` Wrong data ```
             
         </details>
-
 </details>
 
 #### Test
